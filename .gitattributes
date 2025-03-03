@@ -1,0 +1,44 @@
+# Force all text files to use LF line endings
+* text=auto eol=lf
+
+# Unity-specific files (force LF)
+*.cs     text eol=lf
+*.shader text eol=lf
+*.cginc  text eol=lf
+*.hlsl   text eol=lf
+*.glsl   text eol=lf
+*.txt    text eol=lf
+*.json   text eol=lf
+*.xml    text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+
+# Ignore binary files (no line ending conversion)
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.mp3    binary
+*.mp4    binary
+*.wav    binary
+*.fbx    binary
+*.obj    binary
+*.exe    binary
+*.dll    binary
+*.zip    binary
+*.rar    binary
+*.unitypackage binary
+
+# Unity meta files (force LF)
+*.meta   text eol=lf
+
+# Prevent line ending changes for Windows executables
+*.bat    text eol=lf
+*.cmd    text eol=lf
+*.ps1    text eol=lf
+
+# Prevent CRLF in Git and normalize all text to LF
+.gitattributes text eol=lf
+.gitignore     text eol=lf
+README.md      text eol=lf
+LICENSE        text eol=lf
