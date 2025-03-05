@@ -13,7 +13,10 @@ public class AnimalAnalytics : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject); // Make it persist across scenes.
+        }
         else
             Destroy(gameObject);
     }
