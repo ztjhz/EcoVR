@@ -31,9 +31,6 @@ public class AnimalSpawner : MonoBehaviour
         {
             // Choose a random animal prefab from the array
             GameObject animalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Length)];
-            
-            // Keep track of animal count for analytics
-            AnimalAnalytics.Instance.AddAnimal(animalPrefab.name);
 
             // Generate a random spawn position around the camera (ignore the y value for now)
             Vector3 spawnPosition = new Vector3(
@@ -51,7 +48,10 @@ public class AnimalSpawner : MonoBehaviour
             }
 
             // Instantiate the animal prefab at the calculated position
-            Instantiate(animalPrefab, spawnPosition, Quaternion.identity);
+            GameObject newAnimal = Instantiate(animalPrefab, spawnPosition, Quaternion.identity);
+
+            // Assign tag for easier tracking.
+            newAnimal.tag = "Animal";
         }
     }
 

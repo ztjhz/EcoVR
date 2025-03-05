@@ -1,14 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
+using System.Linq;
 
 public class AnimalAnalytics : MonoBehaviour
 {
     public static AnimalAnalytics Instance { get; private set; }
 
     private Dictionary<string, int> animalCounts = new Dictionary<string, int>();
+    private Dictionary<string, List<Vector3>> animalPositions = new Dictionary<string, List<Vector3>>();
     private List<AnimalDataPoint> animalHistory = new List<AnimalDataPoint>();
+    
     private float timeElapsed = 0f;
-    private float logInterval = 1f; // Log every 1 second
+    private float logInterval = 5f; // Log every 1 second
 
     private void Awake()
     {
@@ -26,24 +30,45 @@ public class AnimalAnalytics : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= logInterval)
         {
+            TrackAllAnimals();
             LogAnimalData();
             timeElapsed = 0f;
         }
     }
 
-    public void AddAnimal(string animalType)
+    public void TrackAllAnimals()
     {
-        if (!animalCounts.ContainsKey(animalType))
-            animalCounts[animalType] = 0;
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
 
-        animalCounts[animalType]++;
-        Debug.Log($"[ADD] {animalType} added. Total: {animalCounts[animalType]}");
+        animalCounts.Clear();
+        animalPositions.Clear();
+
+        foreach (GameObject animal in animals)
+        {
+            string animalType = animal.name.Replace("(Clone)", "").Trim();
+            Vector3 position = animal.transform.position;
+
+            // Count animals
+            if (!animalCounts.ContainsKey(animalType))
+                animalCounts[animalType] = 0;
+            animalCounts[animalType]++;
+
+            // Store positions
+            if (!animalPositions.ContainsKey(animalType))
+                animalPositions[animalType] = new List<Vector3>();
+            animalPositions[animalType].Add(position);
+        }
     }
 
-    public void RemoveAnimal(string animalType)
+    private void LogAnimalData()
     {
-        if (animalCounts.ContainsKey(animalType) && animalCounts[animalType] > 0)
-            animalCounts[animalType]--;
+        foreach (var animal in animalCounts)
+        {
+            List<Vector3> positions = animalPositions[animal.Key];
+            string positionsString = string.Join(", ", positions.Select(p => $"({p.x:F2}, {p.y:F2}, {p.z:F2})"));
+            animalHistory.Add(new AnimalDataPoint(Time.time, animal.Key, animal.Value, positions));
+            Debug.Log($"[LOG] Time: {Time.time}, {animal.Key} Count: {animal.Value}, Positions {positionsString}");
+        }
     }
 
     public int GetAnimalCount(string animalType)
@@ -51,13 +76,9 @@ public class AnimalAnalytics : MonoBehaviour
         return animalCounts.ContainsKey(animalType) ? animalCounts[animalType] : 0;
     }
 
-    private void LogAnimalData()
+    public List<Vector3> GetAnimalPositions(string animalType)
     {
-        foreach (var animal in animalCounts)
-        {
-            animalHistory.Add(new AnimalDataPoint(Time.time, animal.Key, animal.Value));
-            Debug.Log($"[LOG] Time: {Time.time}, {animal.Key} Count: {animal.Value}");
-        }
+        return animalPositions.ContainsKey(animalType) ? animalPositions[animalType] : new List<Vector3>();
     }
 
     public List<AnimalDataPoint> GetAnimalHistory()
@@ -72,11 +93,13 @@ public class AnimalDataPoint
     public float time;
     public string animalType;
     public int count;
+    public List<Vector3> positions;
 
-    public AnimalDataPoint(float time, string animalType, int count)
+    public AnimalDataPoint(float time, string animalType, int count, List<Vector3> positions)
     {
         this.time = time;
         this.animalType = animalType;
         this.count = count;
+        this.positions = positions;
     }
 }
