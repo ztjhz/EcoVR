@@ -12,7 +12,7 @@ public class AnimalAnalytics : MonoBehaviour
     private List<AnimalDataPoint> animalHistory = new List<AnimalDataPoint>();
     
     private float timeElapsed = 0f;
-    private float logInterval = 5f; // Log every 1 second
+    private float logIntervalInSeconds = 5f;
 
     private void Awake()
     {
