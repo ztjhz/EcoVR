@@ -28,7 +28,7 @@ public class AnimalAnalytics : MonoBehaviour
     private void Update()
     {
         timeElapsed += Time.deltaTime;
-        if (timeElapsed >= logInterval)
+        if (timeElapsed >= logIntervalInSeconds)
         {
             TrackAllAnimals();
             LogAnimalData();
