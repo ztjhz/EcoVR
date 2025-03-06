@@ -79,8 +79,10 @@ public class AnimalSpawner : MonoBehaviour
     {
         GameObject preyPrefab = preyPrefabs[Random.Range(0, preyPrefabs.Length)];
         Vector3 spawnPosition = GetSpawnPosition();
-        Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
+        GameObject newAnimal = Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
         currentPreyCount++;
+        // Assign tag for easier tracking.
+        newAnimal.tag = "Animal";
     }
 
     // Spawns a random predator animal (called from UI button)
@@ -100,8 +102,10 @@ public class AnimalSpawner : MonoBehaviour
     {
         GameObject predatorPrefab = predatorPrefabs[Random.Range(0, predatorPrefabs.Length)];
         Vector3 spawnPosition = GetSpawnPosition();
-        Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
+        GameObject newAnimal = Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
         currentPredatorCount++;
+        // Assign tag for easier tracking.
+        newAnimal.tag = "Animal";
     }
 
     // Calculates spawn position

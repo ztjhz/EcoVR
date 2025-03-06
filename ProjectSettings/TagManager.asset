@@ -6,6 +6,7 @@ TagManager:
   tags:
   - predator
   - prey
+  - Animal
   layers:
   - Default
   - TransparentFX
