@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 852907373021923915}
   - component: {fileID: 890758082040398104}
-  - component: {fileID: -1713880878093672936}
   - component: {fileID: -3631212624464158058}
+  - component: {fileID: 7075251040008256979}
   m_Layer: 0
   m_Name: Wolf_v1
-  m_TagString: Untagged
+  m_TagString: predator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25, y: 25, z: 25}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 361975422827899148}
@@ -48,7 +48,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4c8bd8abc9f8c6b439c864a65e57e6a5, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -58,23 +58,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-1713880878093672936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44457722849579249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d1d45fdf0d414e1ab7fa121df46f1fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  moveSpeed: 1
-  turnSpeed: 50
-  changeDirectionInterval: 6
-  idleDuration: 4
 --- !u!195 &-3631212624464158058
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -84,7 +67,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 44457722849579249}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -97,6 +80,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7075251040008256979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44457722849579249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4b835e2d3b5ee48b19bba61b19b10b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  detectionRange: 15
+  walkingSpeed: 3.5
+  huntingSpeed: 6.5
+  attackRange: 2.5
+  animator: {fileID: 0}
 --- !u!1 &56153581303605795
 GameObject:
   m_ObjectHideFlags: 0

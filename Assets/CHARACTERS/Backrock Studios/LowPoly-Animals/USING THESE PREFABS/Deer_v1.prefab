@@ -3268,11 +3268,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8436871035280855522}
   - component: {fileID: 8259444472576759937}
-  - component: {fileID: 4670594081372104272}
   - component: {fileID: 7787279479625202143}
+  - component: {fileID: -2218242139581177406}
   m_Layer: 0
   m_Name: Deer_v1
-  m_TagString: Untagged
+  m_TagString: prey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3315,23 +3315,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4670594081372104272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9105743177838676824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d1d45fdf0d414e1ab7fa121df46f1fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  moveSpeed: 1
-  turnSpeed: 50
-  changeDirectionInterval: 6
-  idleDuration: 4
 --- !u!195 &7787279479625202143
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3341,7 +3324,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9105743177838676824}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -3354,3 +3337,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-2218242139581177406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105743177838676824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5774a5fea49853b4d9b396b427c96b9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  awarenessArea: 15
+  walkingSpeed: 3.5
+  runningSpeed: 7
+  animator: {fileID: 0}
