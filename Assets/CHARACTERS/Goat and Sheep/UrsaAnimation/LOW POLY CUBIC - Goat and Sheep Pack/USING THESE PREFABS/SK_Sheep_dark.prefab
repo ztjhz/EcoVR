@@ -1541,23 +1541,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-9131410237760651121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7677146391431892031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5774a5fea49853b4d9b396b427c96b9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  awarenessArea: 15
-  walkingSpeed: 3.5
-  runningSpeed: 7
-  animator: {fileID: 0}
 --- !u!1 &7677146391437125012
 GameObject:
   m_ObjectHideFlags: 0
