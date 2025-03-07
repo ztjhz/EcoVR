@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3631212624464158058}
   m_Layer: 0
   m_Name: Wolf_v1
-  m_TagString: Untagged
+  m_TagString: predator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4c8bd8abc9f8c6b439c864a65e57e6a5, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -58,23 +58,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-1713880878093672936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44457722849579249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d1d45fdf0d414e1ab7fa121df46f1fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  moveSpeed: 1
-  turnSpeed: 50
-  changeDirectionInterval: 6
-  idleDuration: 4
 --- !u!195 &-3631212624464158058
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -84,7 +67,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 44457722849579249}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

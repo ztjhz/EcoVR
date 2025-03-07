@@ -2064,11 +2064,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8185963723970810568}
   - component: {fileID: 8185963723970810569}
-  - component: {fileID: 8185963723970810582}
   - component: {fileID: -996842853783140699}
+  - component: {fileID: 5438101437906711515}
   m_Layer: 0
   m_Name: SK_Sheep_white
-  m_TagString: Untagged
+  m_TagString: prey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2111,23 +2111,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8185963723970810582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8185963723970810583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5010bff315c6e4c8a413f69e3d6458, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  walkForwardAnimation: walk_forward
-  idleAnimation: idle
-  moveSpeed: 2
-  rotationSpeed: 100
 --- !u!195 &-996842853783140699
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2137,7 +2120,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8185963723970810583}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -2150,6 +2133,23 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5438101437906711515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8185963723970810583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5774a5fea49853b4d9b396b427c96b9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  awarenessArea: 15
+  walkingSpeed: 3.5
+  runningSpeed: 7
+  animator: {fileID: 0}
 --- !u!1 &8185963724001097088
 GameObject:
   m_ObjectHideFlags: 0

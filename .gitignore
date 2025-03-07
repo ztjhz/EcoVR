@@ -78,3 +78,9 @@ crashlytics-build.properties
 
 .vsconfig
 .vscode/
+
+RuntimeActionBindings.json
+
+# miko's files
+.plastic
+ignore.conf
