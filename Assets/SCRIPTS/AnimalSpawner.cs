@@ -82,7 +82,7 @@ public class AnimalSpawner : MonoBehaviour
         GameObject newAnimal = Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
         currentPreyCount++;
         // Assign tag for easier tracking.
-        newAnimal.tag = "Animal";
+        newAnimal.tag = "prey";
     }
 
     // Spawns a random predator animal (called from UI button)
@@ -105,7 +105,7 @@ public class AnimalSpawner : MonoBehaviour
         GameObject newAnimal = Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
         currentPredatorCount++;
         // Assign tag for easier tracking.
-        newAnimal.tag = "Animal";
+        newAnimal.tag = "predator";
     }
 
     // Calculates spawn position
