@@ -2610,11 +2610,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3507746843320673366}
   - component: {fileID: 3507746843320673369}
-  - component: {fileID: 3507746843320673368}
   - component: {fileID: 2330967266949296655}
+  - component: {fileID: 3677682097216105923}
   m_Layer: 0
   m_Name: SK_Goat_dark
-  m_TagString: Untagged
+  m_TagString: prey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2657,23 +2657,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3507746843320673368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3507746843320673371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5010bff315c6e4c8a413f69e3d6458, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  walkForwardAnimation: walk_forward
-  idleAnimation: idle
-  moveSpeed: 2
-  rotationSpeed: 100
 --- !u!195 &2330967266949296655
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2696,6 +2679,23 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3677682097216105923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3507746843320673371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5774a5fea49853b4d9b396b427c96b9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  awarenessArea: 15
+  walkingSpeed: 3.5
+  runningSpeed: 7
+  animator: {fileID: 0}
 --- !u!1 &3507746843373913714
 GameObject:
   m_ObjectHideFlags: 0

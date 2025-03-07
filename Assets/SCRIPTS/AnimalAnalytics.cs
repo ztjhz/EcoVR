@@ -38,7 +38,12 @@ public class AnimalAnalytics : MonoBehaviour
 
     public void TrackAllAnimals()
     {
-        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        GameObject[] preys = GameObject.FindGameObjectsWithTag("prey");
+        GameObject[] predators = GameObject.FindGameObjectsWithTag("predator");
+        GameObject[] animals = new GameObject[preys.Length + predators.Length];
+
+        Array.Copy(preys, 0, animals, 0, preys.Length);
+        Array.Copy(predators, 0, animals, preys.Length, predators.Length);
 
         animalCounts.Clear();
         animalPositions.Clear();

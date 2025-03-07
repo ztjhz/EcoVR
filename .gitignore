@@ -81,3 +81,6 @@ crashlytics-build.properties
 
 RuntimeActionBindings.json
 
+# miko's files
+.plastic
+ignore.conf

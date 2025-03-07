@@ -2595,11 +2595,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4077612351692668895}
   - component: {fileID: 4077612351692668894}
-  - component: {fileID: 4077612351692668893}
   - component: {fileID: -8020445388633225255}
+  - component: {fileID: 8805885820994533265}
   m_Layer: 0
   m_Name: SK_Sheep_cream
-  m_TagString: Untagged
+  m_TagString: prey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2642,23 +2642,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4077612351692668893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4077612351692668892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5010bff315c6e4c8a413f69e3d6458, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  walkForwardAnimation: walk_forward
-  idleAnimation: idle
-  moveSpeed: 2
-  rotationSpeed: 100
 --- !u!195 &-8020445388633225255
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2668,7 +2651,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4077612351692668892}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -2681,6 +2664,23 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8805885820994533265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077612351692668892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5774a5fea49853b4d9b396b427c96b9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  awarenessArea: 15
+  walkingSpeed: 3.5
+  runningSpeed: 7
+  animator: {fileID: 0}
 --- !u!1 &4077612351707917761
 GameObject:
   m_ObjectHideFlags: 0

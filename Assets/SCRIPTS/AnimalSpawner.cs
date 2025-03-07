@@ -1,58 +1,134 @@
 using UnityEngine;
+using UnityEngine.UI; // Required for UI elements
 
 public class AnimalSpawner : MonoBehaviour
 {
-    public GameObject[] animalPrefabs;  // Array of animal prefabs to spawn
-    public Camera mainCamera;           // Reference to the camera
-    public int numberOfAnimals = 20;     // Number of animals to spawn
-    public float spawnRange = 10f;      // Range within which to spawn animals
+    public GameObject[] preyPrefabs;
+    public GameObject[] predatorPrefabs;
+    public int initialPreyCount = 5; // Initial number of prey at start
+    public int initialPredatorCount = 2; // Initial number of predators at start
+    public int maxAnimals = 50;
+    public float spawnRange = 10f;
+
+    private int currentPreyCount = 0;
+    private int currentPredatorCount = 0;
+
+    // UI Buttons
+    public Button spawnPreyButton;
+    public Button spawnPredatorButton;
 
     void Start()
     {
-        if (animalPrefabs.Length == 0)
+        if (preyPrefabs.Length == 0 || predatorPrefabs.Length == 0)
         {
             Debug.LogError("No animal prefabs assigned!");
             return;
         }
 
-        if (mainCamera == null)
+        // Setup Button Listeners
+        if (spawnPreyButton != null)
         {
-            Debug.LogError("No camera assigned!");
-            return;
+            spawnPreyButton.onClick.AddListener(SpawnPrey);
+        }
+        else
+        {
+            Debug.LogError("Spawn Prey Button not assigned!");
         }
 
-        // Spawn animals at runtime
-        SpawnAnimals();
+        if (spawnPredatorButton != null)
+        {
+            spawnPredatorButton.onClick.AddListener(SpawnPredator);
+        }
+        else
+        {
+            Debug.LogError("Spawn Predator Button not assigned!");
+        }
+
+        // Spawn Initial Animals
+        SpawnInitialAnimals();
     }
 
-    void SpawnAnimals()
+    void SpawnInitialAnimals()
     {
-        for (int i = 0; i < numberOfAnimals; i++)
+        for (int i = 0; i < initialPreyCount; i++)
         {
-            // Choose a random animal prefab from the array
-            GameObject animalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Length)];
+            SpawnPreyInternal(); // Use internal spawn function
+        }
 
-            // Generate a random spawn position around the camera (ignore the y value for now)
-            Vector3 spawnPosition = new Vector3(
-                mainCamera.transform.position.x + Random.Range(-spawnRange, spawnRange),
-                1000f, // Set an arbitrarily large y value to ensure the raycast hits the ground
-                mainCamera.transform.position.z + Random.Range(-spawnRange, spawnRange)
-            );
-
-            // Raycast downwards to find the ground's position
-            RaycastHit hit;
-            if (Physics.Raycast(spawnPosition, Vector3.down, out hit))
-            {
-                // Set the spawn position to the ground's y value
-                spawnPosition.y = hit.point.y; // hit.point gives the position where the ray hits the ground
-            }
-
-            // Instantiate the animal prefab at the calculated position
-            GameObject newAnimal = Instantiate(animalPrefab, spawnPosition, Quaternion.identity);
-
-            // Assign tag for easier tracking.
-            newAnimal.tag = "Animal";
+        for (int i = 0; i < initialPredatorCount; i++)
+        {
+            SpawnPredatorInternal(); // Use internal spawn function
         }
     }
 
+    // Spawns a random prey animal (called from UI button)
+    public void SpawnPrey()
+    {
+        if (currentPreyCount < maxAnimals)
+        {
+            SpawnPreyInternal(); // Call the internal method
+        }
+        else
+        {
+            Debug.Log("Max Prey Limit Reached!");
+        }
+    }
+
+    // Internal method for spawning prey (used by both initial spawn and button)
+    private void SpawnPreyInternal()
+    {
+        GameObject preyPrefab = preyPrefabs[Random.Range(0, preyPrefabs.Length)];
+        Vector3 spawnPosition = GetSpawnPosition();
+        GameObject newAnimal = Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
+        currentPreyCount++;
+        // Assign tag for easier tracking.
+        newAnimal.tag = "prey";
+    }
+
+    // Spawns a random predator animal (called from UI button)
+    public void SpawnPredator()
+    {
+        if (currentPredatorCount < maxAnimals)
+        {
+            SpawnPredatorInternal(); // Call the internal method
+        }
+        else
+        {
+            Debug.Log("Max Predator Limit Reached!");
+        }
+    }
+
+    private void SpawnPredatorInternal()
+    {
+        GameObject predatorPrefab = predatorPrefabs[Random.Range(0, predatorPrefabs.Length)];
+        Vector3 spawnPosition = GetSpawnPosition();
+        GameObject newAnimal = Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
+        currentPredatorCount++;
+        // Assign tag for easier tracking.
+        newAnimal.tag = "predator";
+    }
+
+    // Calculates spawn position
+    Vector3 GetSpawnPosition()
+    {
+        Vector3 spawnPosition = new Vector3(
+            transform.position.x + Random.Range(-spawnRange, spawnRange),
+            0f,
+            transform.position.z + Random.Range(-spawnRange, spawnRange)
+        );
+
+        return spawnPosition;
+    }
+
+    // Method to decrement prey count (called from PreyAI)
+    public void DecrementPreyCount()
+    {
+        currentPreyCount = Mathf.Max(0, currentPreyCount - 1);
+    }
+
+    // Method to decrement predator count (called from PredatorAI)
+    public void DecrementPredatorCount()
+    {
+        currentPredatorCount = Mathf.Max(0, currentPredatorCount - 1);
+    }
 }
