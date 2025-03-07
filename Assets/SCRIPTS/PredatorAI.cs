@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public class PredatorAI : MonoBehaviour
@@ -13,18 +14,25 @@ public class PredatorAI : MonoBehaviour
     public float huntingSpeed = 8.5f;
     public float attackRange = 3.5f;
     public Animator animator;
-    public float failedHuntDeathTimer = 3 * 24 * 60 * 60; // 3 days in seconds
-    public float attackCooldown = 2f;  // Cooldown between attacks
+    public float failedHuntDeathTimer = 3 * 24 * 60 * 60;
+    public float attackCooldown = 2f;
     private float currentAttackCooldown = 0f;
+    public enum HungerState { NotHungry, Level1, Level2, Level3 }
+    public HungerState hungerLevel = HungerState.NotHungry;
+    private float hungerTimer = 0f;
+    private const float dayDuration = 24 * 60 * 60; // 1 day in seconds
+    
     private NavMeshAgent agent;
-    private GameObject targetPrey; // Changed to GameObject
+    private GameObject targetPrey;
     private float timeSinceLastHunt = 0f;
     private AnimalSpawner spawner;
+
+    [SerializeField] private List<GameObject> preyPrefabs; // Drag prey prefabs here
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = attackRange; // Set stopping distance to attack range
+        agent.stoppingDistance = attackRange;
         agent.autoBraking = true;
         spawner = FindObjectOfType<AnimalSpawner>();
 
@@ -42,14 +50,19 @@ public class PredatorAI : MonoBehaviour
     {
         if (currentState != AIState.Dead)
         {
-            // Update Hunt Timer
             if (currentState != AIState.Hunting && currentState != AIState.Attacking)
             {
                 timeSinceLastHunt += Time.deltaTime;
+                hungerTimer += Time.deltaTime; // Track hunger duration
             }
 
-            // Check for Death by Starvation
-            if (timeSinceLastHunt >= failedHuntDeathTimer)
+            if (hungerTimer >= dayDuration)
+            {
+                IncreaseHunger();
+                hungerTimer = 0f; // Reset daily hunger check
+            }
+
+            if (hungerLevel == HungerState.Level3 && hungerTimer >= dayDuration)
             {
                 Die();
                 return;
@@ -63,27 +76,33 @@ public class PredatorAI : MonoBehaviour
 
         switch (currentState)
         {
-            case AIState.Idle:
-                HandleIdleState();
-                break;
-            case AIState.Walking:
-                HandleWalkingState();
-                break;
-            case AIState.Hunting:
-                HandleHuntingState();
-                break;
-            case AIState.Attacking:
-                HandleAttackingState();
-                break;
-            case AIState.Dead:
-                // Do nothing in dead state
-                break;
+            case AIState.Idle: HandleIdleState(); break;
+            case AIState.Walking: HandleWalkingState(); break;
+            case AIState.Hunting: HandleHuntingState(); break;
+            case AIState.Attacking: HandleAttackingState(); break;
+            case AIState.Dead: break;
+        }
+    }
+
+    void IncreaseHunger()
+    {
+        if (hungerLevel == HungerState.NotHungry)
+        {
+            hungerLevel = HungerState.Level1;
+        }
+        else if (hungerLevel == HungerState.Level1)
+        {
+            hungerLevel = HungerState.Level2;
+        }
+        else if (hungerLevel == HungerState.Level2)
+        {
+            hungerLevel = HungerState.Level3;
         }
     }
 
     void HandleIdleState()
     {
-        if (Random.value < 0.01f) // Small chance to start walking
+        if (Random.value < 0.05f)
         {
             currentState = AIState.Walking;
             Vector3 wanderTarget = RandomNavSphere(transform.position, 10f);
@@ -91,30 +110,25 @@ public class PredatorAI : MonoBehaviour
             SwitchAnimationState(currentState);
         }
 
-        //Try to detect prey even while idling
         DetectPrey();
-
     }
 
     void HandleWalkingState()
     {
-        agent.speed = walkingSpeed;
+        agent.speed = walkingSpeed;  // Ensure correct speed
         if (Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
         {
             currentState = AIState.Idle;
             SwitchAnimationState(currentState);
         }
-
-        //Try to detect prey even while walking
         DetectPrey();
     }
 
     void HandleHuntingState()
     {
-        agent.speed = huntingSpeed;
+        agent.speed = huntingSpeed;  // Ensure correct speed
         if (targetPrey == null)
         {
-            //Lost the prey, go back to idle
             timeSinceLastHunt += Time.deltaTime;
             currentState = AIState.Idle;
             SwitchAnimationState(currentState);
@@ -135,92 +149,29 @@ public class PredatorAI : MonoBehaviour
     {
         if (targetPrey != null)
         {
-            //Stop moving
             agent.SetDestination(transform.position);
             AttackPrey();
             currentAttackCooldown = attackCooldown;
-            timeSinceLastHunt = 0f; // Reset timer when attacking.
+            timeSinceLastHunt = 0f;
         }
         else
         {
             currentState = AIState.Idle;
             SwitchAnimationState(currentState);
-            timeSinceLastHunt += Time.deltaTime;
         }
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        // If we weren't hunting anything, and this is prey, start hunting it
-        if (currentState != AIState.Hunting && other.CompareTag("prey"))
-        {
-            //Check if this potential prey is closer than what we're already hunting.
-            if (targetPrey == null)
-            {
-                targetPrey = other.gameObject;
-                currentState = AIState.Hunting;
-                SwitchAnimationState(currentState);
-            }
-            else
-            {
-                if (Vector3.Distance(transform.position, other.transform.position) < Vector3.Distance(transform.position, targetPrey.transform.position))
-                {
-                    targetPrey = other.gameObject;
-                    currentState = AIState.Hunting;
-                    SwitchAnimationState(currentState);
-                }
-            }
-
-        }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        //Same as trigger enter, but for stay. This is to avoid missing anything while we're attacking.
-        if (currentState != AIState.Hunting && other.CompareTag("prey"))
-        {
-            //Check if this potential prey is closer than what we're already hunting.
-            if (targetPrey == null)
-            {
-                targetPrey = other.gameObject;
-                currentState = AIState.Hunting;
-                SwitchAnimationState(currentState);
-            }
-            else
-            {
-                if (Vector3.Distance(transform.position, other.transform.position) < Vector3.Distance(transform.position, targetPrey.transform.position))
-                {
-                    targetPrey = other.gameObject;
-                    currentState = AIState.Hunting;
-                    SwitchAnimationState(currentState);
-                }
-            }
-
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        //If the prey we're hunting exits, stop hunting it.
-        if (other.gameObject == targetPrey && other.CompareTag("prey"))
-        {
-            targetPrey = null;
-            currentState = AIState.Idle;
-            SwitchAnimationState(currentState);
-        }
-    }
-
 
     void DetectPrey()
     {
-        //Find the closest prey.
         GameObject closestPrey = null;
-        float closestDistance = detectionRange; //only find things in our detection range.
+        float closestDistance = detectionRange;
 
-        //Find all prey in the scene.
-        GameObject[] allPrey = GameObject.FindGameObjectsWithTag("prey");
+        GameObject[] allPrey = GameObject.FindObjectsOfType<GameObject>().Where(obj => preyPrefabs.Contains(obj)).ToArray();
+
         foreach (GameObject prey in allPrey)
         {
+            if (!preyPrefabs.Contains(prey)) continue;
+
             float distance = Vector3.Distance(transform.position, prey.transform.position);
             if (distance < closestDistance)
             {
@@ -229,7 +180,6 @@ public class PredatorAI : MonoBehaviour
             }
         }
 
-        //If we found something, hunt it!
         if (closestPrey != null)
         {
             targetPrey = closestPrey;
@@ -242,32 +192,35 @@ public class PredatorAI : MonoBehaviour
     {
         if (targetPrey == null)
         {
-            // Prey is already dead or missing
             currentState = AIState.Idle;
             SwitchAnimationState(currentState);
             return;
         }
 
-        // Play attack animation
         if (animator)
         {
             animator.SetTrigger("Attack");
         }
 
-        Debug.Log(gameObject.name + " is attacking " + targetPrey.name);
-
-        // Damage the prey (assuming the prey has a health script)
         PreyAI prey = targetPrey.GetComponent<PreyAI>();
         if (prey != null)
         {
-            prey.Die(); // Call the prey's Die method
-        }
-        else
-        {
-            Debug.LogWarning("Prey doesn't have a PreyAI script!");
+            prey.Die();
+
+            // Reduce hunger level based on the current state
+            if (hungerLevel == HungerState.Level3)
+            {
+                hungerLevel = HungerState.Level2; // Eating at Level 3 resets to Level 2
+            }
+            else
+            {
+                hungerLevel = HungerState.NotHungry; // Eating at Level 1 or 2 resets fully
+            }
+
+            timeSinceLastHunt = 0f; 
+            hungerTimer = 0f; // Reset hunger timer
         }
 
-        // Go back to idle after attack
         currentState = AIState.Idle;
         SwitchAnimationState(currentState);
         currentAttackCooldown = attackCooldown;
@@ -276,19 +229,15 @@ public class PredatorAI : MonoBehaviour
 
     void Die()
     {
+        FindObjectOfType<AnimalSpawner>()?.DecrementPredatorCount(gameObject);
+
         if (spawner != null)
         {
-            spawner.DecrementPredatorCount();
-        }
-        else
-        {
-            Debug.LogError("AnimalSpawner not found, unable to decrement predator count.");
+            spawner.DecrementPredatorCount(gameObject);
         }
 
         currentState = AIState.Dead;
         SwitchAnimationState(currentState);
-
-        // Destroy the GameObject after a delay
         Destroy(gameObject, 2f);
     }
 

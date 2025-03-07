@@ -1,19 +1,22 @@
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class AnimalSpawner : MonoBehaviour
 {
     public GameObject[] preyPrefabs;
     public GameObject[] predatorPrefabs;
-    public int initialPreyCount = 5; // Initial number of prey at start
-    public int initialPredatorCount = 2; // Initial number of predators at start
+    public int initialPreyCount = 5;
+    public int initialPredatorCount = 2;
     public int maxAnimals = 50;
     public float spawnRange = 10f;
-
+    public float checkInterval = 10f; // Check every 10 seconds
+    
     private int currentPreyCount = 0;
     private int currentPredatorCount = 0;
-
-    // UI Buttons
+    private List<GameObject> activePrey = new List<GameObject>();
+    private List<GameObject> activePredators = new List<GameObject>();
+    
     public Button spawnPreyButton;
     public Button spawnPredatorButton;
 
@@ -25,110 +28,110 @@ public class AnimalSpawner : MonoBehaviour
             return;
         }
 
-        // Setup Button Listeners
         if (spawnPreyButton != null)
-        {
             spawnPreyButton.onClick.AddListener(SpawnPrey);
-        }
         else
-        {
             Debug.LogError("Spawn Prey Button not assigned!");
-        }
 
         if (spawnPredatorButton != null)
-        {
             spawnPredatorButton.onClick.AddListener(SpawnPredator);
-        }
         else
-        {
             Debug.LogError("Spawn Predator Button not assigned!");
-        }
 
-        // Spawn Initial Animals
         SpawnInitialAnimals();
+        InvokeRepeating("EvaluatePopulation", checkInterval, checkInterval);
     }
 
     void SpawnInitialAnimals()
     {
         for (int i = 0; i < initialPreyCount; i++)
-        {
-            SpawnPreyInternal(); // Use internal spawn function
-        }
+            SpawnPreyInternal();
 
         for (int i = 0; i < initialPredatorCount; i++)
-        {
-            SpawnPredatorInternal(); // Use internal spawn function
-        }
+            SpawnPredatorInternal();
     }
 
-    // Spawns a random prey animal (called from UI button)
     public void SpawnPrey()
     {
         if (currentPreyCount < maxAnimals)
-        {
-            SpawnPreyInternal(); // Call the internal method
-        }
+            SpawnPreyInternal();
         else
-        {
             Debug.Log("Max Prey Limit Reached!");
-        }
     }
 
-    // Internal method for spawning prey (used by both initial spawn and button)
     private void SpawnPreyInternal()
     {
         GameObject preyPrefab = preyPrefabs[Random.Range(0, preyPrefabs.Length)];
         Vector3 spawnPosition = GetSpawnPosition();
-        GameObject newAnimal = Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
+        GameObject newPrey = Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
+        activePrey.Add(newPrey);
         currentPreyCount++;
-        // Assign tag for easier tracking.
-        newAnimal.tag = "prey";
+        newPrey.tag = "prey";
     }
 
-    // Spawns a random predator animal (called from UI button)
     public void SpawnPredator()
     {
         if (currentPredatorCount < maxAnimals)
-        {
-            SpawnPredatorInternal(); // Call the internal method
-        }
+            SpawnPredatorInternal();
         else
-        {
             Debug.Log("Max Predator Limit Reached!");
-        }
     }
 
     private void SpawnPredatorInternal()
     {
         GameObject predatorPrefab = predatorPrefabs[Random.Range(0, predatorPrefabs.Length)];
         Vector3 spawnPosition = GetSpawnPosition();
-        GameObject newAnimal = Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
+        GameObject newPredator = Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
+        activePredators.Add(newPredator);
         currentPredatorCount++;
-        // Assign tag for easier tracking.
-        newAnimal.tag = "predator";
+        newPredator.tag = "predator";
     }
 
-    // Calculates spawn position
     Vector3 GetSpawnPosition()
     {
-        Vector3 spawnPosition = new Vector3(
+        Vector3 randomSpawnPosition = new Vector3(
             transform.position.x + Random.Range(-spawnRange, spawnRange),
-            0f,
+            1000f,
             transform.position.z + Random.Range(-spawnRange, spawnRange)
         );
 
-        return spawnPosition;
+        RaycastHit hit;
+        if (Physics.Raycast(randomSpawnPosition, Vector3.down, out hit))
+        {
+            UnityEngine.AI.NavMeshHit navHit;
+            if (UnityEngine.AI.NavMesh.SamplePosition(hit.point, out navHit, 10f, UnityEngine.AI.NavMesh.AllAreas))
+                return navHit.position;
+        }
+
+        Debug.LogWarning("Failed to find valid NavMesh position, using fallback.");
+        return transform.position;
     }
 
-    // Method to decrement prey count (called from PreyAI)
-    public void DecrementPreyCount()
+    public void DecrementPreyCount(GameObject prey)
     {
-        currentPreyCount = Mathf.Max(0, currentPreyCount - 1);
+        if (activePrey.Contains(prey))
+        {
+            activePrey.Remove(prey);
+            Destroy(prey);
+            currentPreyCount = Mathf.Max(0, currentPreyCount - 1);
+        }
     }
 
-    // Method to decrement predator count (called from PredatorAI)
-    public void DecrementPredatorCount()
+    public void DecrementPredatorCount(GameObject predator)
     {
-        currentPredatorCount = Mathf.Max(0, currentPredatorCount - 1);
+        if (activePredators.Contains(predator))
+        {
+            activePredators.Remove(predator);
+            Destroy(predator);
+            currentPredatorCount = Mathf.Max(0, currentPredatorCount - 1);
+        }
+    }
+
+    void EvaluatePopulation()
+    {
+        activePrey.RemoveAll(item => item == null);
+        activePredators.RemoveAll(item => item == null);
+        currentPreyCount = activePrey.Count;
+        currentPredatorCount = activePredators.Count;
     }
 }

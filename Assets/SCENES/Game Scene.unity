@@ -1754,6 +1754,80 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &77227268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77227269}
+  - component: {fileID: 77227271}
+  - component: {fileID: 77227270}
+  m_Layer: 0
+  m_Name: AnimalAI Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &77227269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77227268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1004365158}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77227270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77227268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402e401e919354db49c189e07a4eaa56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  detectionRange: 30
+  walkingSpeed: 4.5
+  huntingSpeed: 8.5
+  attackRange: 3.5
+  animator: {fileID: 0}
+  failedHuntDeathTimer: 259200
+  attackCooldown: 2
+  hungerLevel: 0
+  preyPrefabs: []
+--- !u!114 &77227271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77227268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac57f3a39fbb444928b4f3275c5e4ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  detectionRange: 15
+  walkingSpeed: 3.5
+  runningSpeed: 7
+  fleeDistance: 20
+  animator: {fileID: 0}
+  predatorPrefabs: []
 --- !u!4 &85592475 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5603098696198634473, guid: 1f6a8fd12aafb964e885ae2792e18174, type: 3}
@@ -8518,7 +8592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 704595408193292942, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
       propertyPath: randSeed
-      value: 1187869107
+      value: 44523560
       objectReference: {fileID: 0}
     - target: {fileID: 704595408193292942, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
       propertyPath: m_Enabled
@@ -12790,17 +12864,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preyPrefabs:
   - {fileID: 3507746843320673371, guid: 4f9eebc977b93d641a58f15164948196, type: 3}
-  - {fileID: 4077612351692668892, guid: 0322c9b0c4f4d93418d648ec9405b63d, type: 3}
   - {fileID: 3084024626696190684, guid: f5c8b6dc56a8e634a8f2a0cfbee2941d, type: 3}
+  - {fileID: 4077612351692668892, guid: 0322c9b0c4f4d93418d648ec9405b63d, type: 3}
   - {fileID: 7677146391431892031, guid: 7ac0f4727b8b02d4b8fd471d4dc47304, type: 3}
   - {fileID: 8185963723970810583, guid: c36cdfacfaab1584c887c605bc8e7b2f, type: 3}
-  - {fileID: 9105743177838676824, guid: c5e7db6e3efa2e2478680f31241412fa, type: 3}
+  - {fileID: 1047755721396717109, guid: 303d9560b1a0e58499eb70417be2e820, type: 3}
+  - {fileID: 7759253174085040456, guid: 88d08fe5e350f4d4a9ee30664b4a78a9, type: 3}
+  - {fileID: 1852192829216458104, guid: f8c5201dc1428b34f972a12c07308693, type: 3}
+  - {fileID: 9194464393113665397, guid: 66deb053a641195469d3250900cb1810, type: 3}
+  - {fileID: 861079431464677581, guid: 4b877241f1de04940bd8be76121b2646, type: 3}
   predatorPrefabs:
   - {fileID: 44457722849579249, guid: d51e17bbcf7a9504cae24bee0113de97, type: 3}
+  - {fileID: 3029702961771229747, guid: a300252317ae09c4882fa593264f26a9, type: 3}
+  - {fileID: 6943659272118897294, guid: 79fb965ef8845694e9364f4b24c987e9, type: 3}
   initialPreyCount: 5
   initialPredatorCount: 2
   maxAnimals: 50
   spawnRange: 10
+  checkInterval: 10
   spawnPreyButton: {fileID: 932941375}
   spawnPredatorButton: {fileID: 1631464293}
 --- !u!4 &684697949
@@ -18266,6 +18347,8 @@ Transform:
   - {fileID: 1561663080}
   - {fileID: 1421160524}
   - {fileID: 1443098788}
+  - {fileID: 77227269}
+  - {fileID: 1224774377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1006538176
@@ -22050,6 +22133,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22bc4bf44a0c4f4439ab23d2a7b8afb8, type: 3}
+--- !u!84 &1178985553
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1001 &1180116299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22778,6 +22899,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8f403b4517ddd844988838750e9a72a, type: 3}
+--- !u!1 &1224774376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1224774377}
+  - component: {fileID: 1224774378}
+  m_Layer: 0
+  m_Name: ConwayPopulation Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1224774377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224774376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1004365158}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224774378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224774376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2d42055f54d41b98d74df846af6b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1225194841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33522,6 +33687,44 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3021800361227820097, guid: 3da39b9cbf771e24685504dbfdd96764, type: 3}
   m_PrefabInstance: {fileID: 1685212276}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &1688234571
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!4 &1689867820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6372004229413120080, guid: 941dfb6170fa38444b15f1166cef0216, type: 3}
