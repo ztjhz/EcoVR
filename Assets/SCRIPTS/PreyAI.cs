@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,21 +14,16 @@ public class PreyAI : MonoBehaviour
     public float fleeDistance = 20f; // How far the prey should flee
     public Animator animator;
 
-    private NavMeshAgent agent;
     private Transform detectedPredator;
     private bool switchAction = false;
     private float actionTimer = 0;
     private AnimalSpawner spawner;
 
-    [SerializeField] private List<GameObject> predatorPrefabs; // Drag predator prefabs here
+    [SerializeField] public List<GameObject> predatorPrefabs; // Drag predator prefabs here
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = 0;
-        agent.autoBraking = true;
         spawner = FindObjectOfType<AnimalSpawner>();
-
         currentState = AIState.Idle;
         SwitchAnimationState(currentState);
 
@@ -55,33 +49,18 @@ public class PreyAI : MonoBehaviour
     {
         if (Random.value < 0.01f) // 1% chance per frame to move
         {
-            Vector3 wanderTarget = RandomNavSphere(transform.position, 10f);
-
-            if (agent.isOnNavMesh)
-            {
-                agent.SetDestination(wanderTarget);
-                currentState = AIState.Walking;
-                SwitchAnimationState(currentState);
-            }
-            else
-            {
-                Debug.LogWarning(gameObject.name + " is not on NavMesh! Trying to reposition.");
-                RepositionToNavMesh();
-            }
+            Vector3 wanderTarget = RandomWanderTarget(transform.position, 10f);
+            MoveTowards(wanderTarget);
+            currentState = AIState.Walking;
+            SwitchAnimationState(currentState);
         }
+
         DetectPredator();
     }
 
     void HandleWalkingState()
     {
-        agent.speed = walkingSpeed;
-
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && agent.velocity.sqrMagnitude < 0.01f)
-        {
-            currentState = AIState.Idle;
-            SwitchAnimationState(currentState);
-        }
-
+        MoveTowards(transform.position); // Simplified movement, no agent required
         DetectPredator();
     }
 
@@ -91,8 +70,8 @@ public class PreyAI : MonoBehaviour
         {
             if (!animator || animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
             {
-                Vector3 newDestination = RandomNavSphere(transform.position, Random.Range(3, 7));
-                agent.destination = newDestination;
+                Vector3 newDestination = RandomWanderTarget(transform.position, Random.Range(3, 7));
+                MoveTowards(newDestination);
                 currentState = AIState.Walking;
                 SwitchAnimationState(currentState);
             }
@@ -103,22 +82,13 @@ public class PreyAI : MonoBehaviour
 
     void HandleRunningState()
     {
-        agent.speed = runningSpeed;
-
         if (detectedPredator)
         {
             Vector3 fleeDirection = (transform.position - detectedPredator.position).normalized;
             Vector3 fleeTarget = transform.position + fleeDirection * fleeDistance;
-            Vector3 validFleePosition = RandomNavSphere(fleeTarget, 10f);
+            Vector3 validFleePosition = RandomWanderTarget(fleeTarget, 10f);
 
-            if (agent.isOnNavMesh)
-            {
-                agent.SetDestination(validFleePosition);
-            }
-            else
-            {
-                RepositionToNavMesh();
-            }
+            MoveTowards(validFleePosition);
         }
     }
 
@@ -174,31 +144,17 @@ public class PreyAI : MonoBehaviour
         }
     }
 
-    Vector3 RandomNavSphere(Vector3 origin, float distance)
+    Vector3 RandomWanderTarget(Vector3 origin, float distance)
     {
         Vector3 randomDirection = Random.insideUnitSphere * distance;
         randomDirection += origin;
 
-        NavMeshHit navHit;
-        bool isValid = NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
-
-        return isValid ? navHit.position : origin; // Return original position if NavMesh position isn't found
+        return randomDirection;
     }
 
-
-    void RepositionToNavMesh()
+    void MoveTowards(Vector3 target)
     {
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))
-        {
-            transform.position = hit.position;
-            agent.Warp(hit.position);
-            Debug.Log(gameObject.name + " repositioned onto NavMesh.");
-        }
-        else
-        {
-            Debug.LogError(gameObject.name + " could not be placed on a NavMesh!");
-        }
+        float speed = (currentState == AIState.Running) ? runningSpeed : walkingSpeed;
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
-
 }

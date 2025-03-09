@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,21 +20,16 @@ public class PredatorAI : MonoBehaviour
     public HungerState hungerLevel = HungerState.NotHungry;
     private float hungerTimer = 0f;
     private const float dayDuration = 24 * 60 * 60; // 1 day in seconds
-    
-    private NavMeshAgent agent;
+
     private GameObject targetPrey;
     private float timeSinceLastHunt = 0f;
     private AnimalSpawner spawner;
 
-    [SerializeField] private List<GameObject> preyPrefabs; // Drag prey prefabs here
+    [SerializeField] public List<GameObject> preyPrefabs; // Drag prey prefabs here
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = attackRange;
-        agent.autoBraking = true;
         spawner = FindObjectOfType<AnimalSpawner>();
-
         currentState = AIState.Idle;
         SwitchAnimationState(currentState);
         currentAttackCooldown = 0;
@@ -105,8 +99,8 @@ public class PredatorAI : MonoBehaviour
         if (Random.value < 0.05f)
         {
             currentState = AIState.Walking;
-            Vector3 wanderTarget = RandomNavSphere(transform.position, 10f);
-            agent.SetDestination(wanderTarget);
+            Vector3 wanderTarget = RandomWanderTarget(transform.position, 10f);
+            MoveTowards(wanderTarget);
             SwitchAnimationState(currentState);
         }
 
@@ -115,8 +109,7 @@ public class PredatorAI : MonoBehaviour
 
     void HandleWalkingState()
     {
-        agent.speed = walkingSpeed;  // Ensure correct speed
-        if (Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
+        if (Vector3.Distance(transform.position, targetPrey.transform.position) <= attackRange)
         {
             currentState = AIState.Idle;
             SwitchAnimationState(currentState);
@@ -126,7 +119,6 @@ public class PredatorAI : MonoBehaviour
 
     void HandleHuntingState()
     {
-        agent.speed = huntingSpeed;  // Ensure correct speed
         if (targetPrey == null)
         {
             timeSinceLastHunt += Time.deltaTime;
@@ -135,7 +127,7 @@ public class PredatorAI : MonoBehaviour
             return;
         }
 
-        agent.SetDestination(targetPrey.transform.position);
+        MoveTowards(targetPrey.transform.position);
 
         float distanceToPrey = Vector3.Distance(transform.position, targetPrey.transform.position);
         if (distanceToPrey <= attackRange && currentAttackCooldown <= 0)
@@ -149,7 +141,7 @@ public class PredatorAI : MonoBehaviour
     {
         if (targetPrey != null)
         {
-            agent.SetDestination(transform.position);
+            MoveTowards(transform.position);
             AttackPrey();
             currentAttackCooldown = attackCooldown;
             timeSinceLastHunt = 0f;
@@ -217,7 +209,7 @@ public class PredatorAI : MonoBehaviour
                 hungerLevel = HungerState.NotHungry; // Eating at Level 1 or 2 resets fully
             }
 
-            timeSinceLastHunt = 0f; 
+            timeSinceLastHunt = 0f;
             hungerTimer = 0f; // Reset hunger timer
         }
 
@@ -252,14 +244,17 @@ public class PredatorAI : MonoBehaviour
         }
     }
 
-    Vector3 RandomNavSphere(Vector3 origin, float distance)
+    Vector3 RandomWanderTarget(Vector3 origin, float distance)
     {
         Vector3 randomDirection = Random.insideUnitSphere * distance;
         randomDirection += origin;
 
-        NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
+        return randomDirection; // No NavMesh required anymore
+    }
 
-        return navHit.position;
+    void MoveTowards(Vector3 target)
+    {
+        float step = (currentState == AIState.Hunting) ? huntingSpeed : walkingSpeed;
+        transform.position = Vector3.MoveTowards(transform.position, target, step * Time.deltaTime);
     }
 }
