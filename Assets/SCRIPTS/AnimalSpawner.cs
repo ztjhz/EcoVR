@@ -55,9 +55,6 @@ public class AnimalSpawner : MonoBehaviour
     {
         if (currentPreyCount < maxAnimals)
             SpawnPreyInternal();
-        else
-            return;
-            //Debug.Log("Max Prey Limit Reached!");
     }
 
     private void SpawnPreyInternal()

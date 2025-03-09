@@ -35,13 +35,6 @@ public class VisualisePopulationDistribution : MonoBehaviour
             .GroupBy(a => a.time)
             .ToDictionary(g => g.Key, g => g.ToList());
 
-        // Ensure there is at least one time entry
-        if (animalHistoryFromTime.Count == 0)
-        {
-            Debug.LogWarning("No valid time data found.");
-            return;
-        }
-
         isInitialized = true;
 
         // Display the first available time step
@@ -73,13 +66,13 @@ public class VisualisePopulationDistribution : MonoBehaviour
 
         foreach (AnimalDataPoint data in animalHistoryFromTime[time])
         {
-            string animalCategory = data.animalType;
+            string animalCategory = data.animalType; // TODO: group similar animals together
 
             if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))
             {
                 graphIndexFromAnimalCategory[animalCategory] = graphCount;
                 Scatter serie = chart.AddSerie<Scatter>(animalCategory);
-                serie.symbol.type = SymbolType.Circle;
+                serie.symbol.type = SymbolType.Circle; // TODO: change icon based on prey/predator
                 serie.symbol.size = 10;
                 serie.itemStyle.opacity = 0.5f;
                 graphCount++;
@@ -102,5 +95,12 @@ public class VisualisePopulationDistribution : MonoBehaviour
 
         var title = chart.EnsureChartComponent<Title>();
         title.text = "Population Distribution";
+
+        // TODO: continue customising (not the focus now, as the graph should already exist)
+
+        // set x-axis and y-axis name
+        // remove x-axis and y-axis ticks and labels
+        // remove y-axis split lines
+        // add legend
     }
 }
