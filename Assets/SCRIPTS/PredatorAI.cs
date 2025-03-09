@@ -27,7 +27,7 @@ public class PredatorAI : MonoBehaviour
     private float timeSinceLastHunt = 0f;
     private AnimalSpawner spawner;
 
-    [SerializeField] private List<GameObject> preyPrefabs; // Drag prey prefabs here
+    [SerializeField] private List<GameObject> preyPrefabs;
 
     void Start()
     {

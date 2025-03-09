@@ -1,6 +1,106 @@
-using UnityEngine;using System.Collections.Generic;using System.Linq;using XCharts.Runtime;public class VisualisePopulationDistribution : MonoBehaviour{    private void Awake()    {        ScatterChart chart = gameObject.GetComponent<ScatterChart>();        if (chart == null)        {            Debug.LogWarning("Chart missing! Adding a chart now...");            CreateGraph(chart);        }        chart.RemoveData();        List<AnimalDataPoint> animalHistory = AnimalAnalytics.Instance.GetAnimalHistory();                Dictionary<string, int> graphIndexFromAnimalCategory = new Dictionary<string, int>();        Dictionary<int, List<AnimalDataPoint>> animalHistoryFromTime = animalHistory            .GroupBy(a => a.time)            .ToDictionary(g => g.Key, g => g.ToList());        int graphCount = 0;        int currTime = animalHistoryFromTime.Keys.First();        // todo: implement ability for users to choose the time to display the heatmap        foreach (AnimalDataPoint data in animalHistoryFromTime[currTime])        {            string animalCategory = data.animalType; // in the future can group similar animals together            if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))            {                graphIndexFromAnimalCategory[animalCategory] = graphCount;                Scatter serie = chart.AddSerie<Scatter>(animalCategory);                serie.symbol.type = SymbolType.Circle; // in the future, can change based on prey/predator                serie.symbol.size = 10;
-                serie.itemStyle.opacity = 0.5f;
-                graphCount++;            }            int index = graphIndexFromAnimalCategory[animalCategory];            foreach (Vector3 pos in data.positions)
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using XCharts.Runtime;
+
+public class VisualisePopulationDistribution : MonoBehaviour
+{
+    private ScatterChart chart;
+    private Dictionary<int, List<AnimalDataPoint>> animalHistoryFromTime;
+    private Dictionary<string, int> graphIndexFromAnimalCategory;
+    private bool isInitialized = false;
+
+    private void Awake()
+    {
+        // Ensure ScatterChart is assigned
+        chart = gameObject.GetComponent<ScatterChart>();
+        if (chart == null)
+        {
+            Debug.LogWarning("Chart missing! Creating one now...");
+            CreateGraph();
+        }
+
+        // Fetch animal history data
+        List<AnimalDataPoint> animalHistory = AnimalAnalytics.Instance?.GetAnimalHistory();
+
+        if (animalHistory == null || animalHistory.Count == 0)
+        {
+            Debug.LogWarning("No animal data found! Graph will not update.");
+            return;
+        }
+
+        // Group animal data by time
+        animalHistoryFromTime = animalHistory
+            .GroupBy(a => a.time)
+            .ToDictionary(g => g.Key, g => g.ToList());
+
+        // Ensure there is at least one time entry
+        if (animalHistoryFromTime.Count == 0)
+        {
+            Debug.LogWarning("No valid time data found.");
+            return;
+        }
+
+        isInitialized = true;
+
+        // Display the first available time step
+        int firstTime = animalHistoryFromTime.Keys.First();
+        UpdateGraph(firstTime);
+    }
+
+    public void UpdateGraph(int time)
+    {
+        // Prevent updating before initialization
+        if (!isInitialized)
+        {
+            Debug.LogWarning("Graph not initialized yet.");
+            return;
+        }
+
+        // Ensure the requested time exists
+        if (animalHistoryFromTime == null || !animalHistoryFromTime.ContainsKey(time))
+        {
+            Debug.LogWarning($"No data available for time: {time}");
+            return;
+        }
+
+        // Clear previous graph data
+        chart.RemoveData();
+        graphIndexFromAnimalCategory = new Dictionary<string, int>();
+
+        int graphCount = 0;
+
+        foreach (AnimalDataPoint data in animalHistoryFromTime[time])
+        {
+            string animalCategory = data.animalType;
+
+            if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))
             {
-                chart.AddData(index, new double[] { pos[0], pos[1] });
-            }        }    }    private void Update()    {    }    private void CreateGraph(ScatterChart chart)    {        // Fall back        chart = gameObject.AddComponent<ScatterChart>();        chart.Init();        chart.SetSize(1300, 700);        var title = chart.EnsureChartComponent<Title>();        title.text = "Population Distribution";        // todo: continue customising (not the focus now, as the graph should already exist)        // set x-axis and y-axis name        // remove x-axis and y-axis ticks and labels        // remove y-axis split lines        // add legend    }}
+                graphIndexFromAnimalCategory[animalCategory] = graphCount;
+                Scatter serie = chart.AddSerie<Scatter>(animalCategory);
+                serie.symbol.type = SymbolType.Circle;
+                serie.symbol.size = 10;
+                serie.itemStyle.opacity = 0.5f;
+                graphCount++;
+            }
+
+            int index = graphIndexFromAnimalCategory[animalCategory];
+
+            foreach (Vector3 pos in data.positions)
+            {
+                chart.AddData(index, new double[] { pos.x, pos.z }); // Using X-Z plane
+            }
+        }
+    }
+
+    private void CreateGraph()
+    {
+        chart = gameObject.AddComponent<ScatterChart>();
+        chart.Init();
+        chart.SetSize(1300, 700);
+
+        var title = chart.EnsureChartComponent<Title>();
+        title.text = "Population Distribution";
+    }
+}
