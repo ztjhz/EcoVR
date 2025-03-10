@@ -68,12 +68,13 @@ public class AnimalAnalytics : MonoBehaviour
 
     private void LogAnimalData()
     {
+        int currTime = (int)Math.Round(Time.time);
         foreach (var animal in animalCounts)
         {
             List<Vector3> positions = animalPositions[animal.Key];
             string positionsString = string.Join(", ", positions.Select(p => $"({p.x:F2}, {p.y:F2}, {p.z:F2})"));
-            animalHistory.Add(new AnimalDataPoint(Time.time, animal.Key, animal.Value, positions));
-            Debug.Log($"[LOG] Time: {Time.time}, {animal.Key} Count: {animal.Value}, Positions {positionsString}");
+            animalHistory.Add(new AnimalDataPoint(currTime, animal.Key, animal.Value, positions));
+            Debug.Log($"[LOG] Time: {currTime}, {animal.Key} Count: {animal.Value}, Positions {positionsString}");
         }
     }
 
@@ -96,12 +97,12 @@ public class AnimalAnalytics : MonoBehaviour
 [System.Serializable]
 public class AnimalDataPoint
 {
-    public float time;
+    public int time;
     public string animalType;
     public int count;
     public List<Vector3> positions;
 
-    public AnimalDataPoint(float time, string animalType, int count, List<Vector3> positions)
+    public AnimalDataPoint(int time, string animalType, int count, List<Vector3> positions)
     {
         this.time = time;
         this.animalType = animalType;
