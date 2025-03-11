@@ -64,7 +64,6 @@ public class AnimalSpawner : MonoBehaviour
         GameObject newPrey = Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
         activePrey.Add(newPrey);
         currentPreyCount++;
-        newPrey.tag = "prey";
     }
 
     public void SpawnPredator()
@@ -82,7 +81,6 @@ public class AnimalSpawner : MonoBehaviour
         GameObject newPredator = Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
         activePredators.Add(newPredator);
         currentPredatorCount++;
-        newPredator.tag = "predator";
     }
 
     Vector3 GetSpawnPosition()

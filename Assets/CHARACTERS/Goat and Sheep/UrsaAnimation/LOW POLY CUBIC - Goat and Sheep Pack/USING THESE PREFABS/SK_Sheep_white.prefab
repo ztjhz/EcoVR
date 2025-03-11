@@ -2065,10 +2065,12 @@ GameObject:
   - component: {fileID: 8185963723970810568}
   - component: {fileID: 8185963723970810569}
   - component: {fileID: -996842853783140699}
-  - component: {fileID: 5438101437906711515}
+  - component: {fileID: -3125464802284655392}
+  - component: {fileID: 4989983507651838506}
+  - component: {fileID: 4650679469599199156}
   m_Layer: 0
   m_Name: SK_Sheep_white
-  m_TagString: prey
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2133,6 +2135,85 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-3125464802284655392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8185963723970810583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5010bff315c6e4c8a413f69e3d6458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  animator: {fileID: 0}
+  walkForwardAnimation: walk_forward
+  idleAnimation: idle
+  runForwardAnimation: run_forward
+  trotForwardAnimation: trot_forward
+  walkBackwardsAnimation: walk_backwards
+  turn90LeftAnimation: turn_90_L
+  turn90RightAnimation: turn_90_R
+  standToSitAnimation: stand_to_sit
+  sitToStandAnimation: sit_to_stand
+  moveSpeed: 2
+  rotationSpeed: 100
+  detectionRange: 15
+  fleeDistance: 20
+  predatorPrefabs:
+  - {fileID: 44457722849579249, guid: d51e17bbcf7a9504cae24bee0113de97, type: 3}
+  - {fileID: 3029702961771229747, guid: a300252317ae09c4882fa593264f26a9, type: 3}
+  - {fileID: 6943659272118897294, guid: 79fb965ef8845694e9364f4b24c987e9, type: 3}
+--- !u!135 &4989983507651838506
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8185963723970810583}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4650679469599199156
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8185963723970810583}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8185963724001097088
 GameObject:
   m_ObjectHideFlags: 0
