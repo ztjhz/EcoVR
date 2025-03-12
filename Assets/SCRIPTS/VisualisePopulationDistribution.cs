@@ -73,9 +73,14 @@ public class VisualisePopulationDistribution : MonoBehaviour
             {
                 graphIndexFromAnimalCategory[animalCategory] = graphCount;
                 Scatter serie = chart.AddSerie<Scatter>(animalCategory);
-                serie.symbol.type = SymbolType.Circle; // TODO: change icon based on prey/predator
+
+                if (data.animalType == "prey")
+                    serie.symbol.type = SymbolType.Circle;
+                else
+                    serie.symbol.type = SymbolType.Triangle;
+
                 serie.symbol.size = 10;
-                serie.itemStyle.opacity = 0.5f;
+                serie.itemStyle.opacity = 0.8f;
                 graphCount++;
             }
 
