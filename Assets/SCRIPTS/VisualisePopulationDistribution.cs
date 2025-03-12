@@ -81,6 +81,7 @@ public class VisualisePopulationDistribution : MonoBehaviour
 
                 serie.symbol.size = 10;
                 serie.itemStyle.opacity = 0.8f;
+                serie.AnimationEnable(false);
                 graphCount++;
             }
 
