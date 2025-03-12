@@ -1381,6 +1381,7 @@ GameObject:
   - component: {fileID: -2269460576700660521}
   - component: {fileID: 6084376839578919846}
   - component: {fileID: 765472849312389271}
+  - component: {fileID: -203237756014460372}
   m_Layer: 0
   m_Name: Wolf_v3
   m_TagString: Untagged
@@ -1487,6 +1488,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-203237756014460372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029702961771229747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402e401e919354db49c189e07a4eaa56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  detectionRange: 30
+  walkingSpeed: 4.5
+  huntingSpeed: 8.5
+  attackRange: 3.5
+  animator: {fileID: 0}
+  failedHuntDeathTimer: 259200
+  attackCooldown: 2
+  hungerLevel: 0
 --- !u!1 &3049262097840851169
 GameObject:
   m_ObjectHideFlags: 0
