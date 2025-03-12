@@ -3207,7 +3207,7 @@ GameObject:
   - component: {fileID: 3084024626696190678}
   - component: {fileID: 3084024626696190681}
   - component: {fileID: 662583863173788478}
-  - component: {fileID: 1162620708896837820}
+  - component: {fileID: 5331043203047728799}
   m_Layer: 0
   m_Name: SK_Goat_white
   m_TagString: prey
@@ -3275,6 +3275,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &5331043203047728799
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3084024626696190684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3084024626740517228
 GameObject:
   m_ObjectHideFlags: 0

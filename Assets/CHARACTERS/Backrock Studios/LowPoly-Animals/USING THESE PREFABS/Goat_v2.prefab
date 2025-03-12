@@ -1581,6 +1581,7 @@ GameObject:
   - component: {fileID: 8311434305952545455}
   - component: {fileID: 2825551298904561060}
   - component: {fileID: -5837348316966260636}
+  - component: {fileID: -6484939126210390389}
   m_Layer: 0
   m_Name: Goat_v2
   m_TagString: Untagged
@@ -1665,3 +1666,26 @@ MonoBehaviour:
   turnSpeed: 50
   changeDirectionInterval: 6
   idleDuration: 4
+--- !u!136 &-6484939126210390389
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194464393113665397}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

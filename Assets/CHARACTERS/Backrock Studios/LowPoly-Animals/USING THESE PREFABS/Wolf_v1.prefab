@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 852907373021923915}
   - component: {fileID: 890758082040398104}
-  - component: {fileID: -1713880878093672936}
   - component: {fileID: -3631212624464158058}
+  - component: {fileID: -8901223864589943382}
   m_Layer: 0
   m_Name: Wolf_v1
   m_TagString: predator
@@ -80,6 +80,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &-8901223864589943382
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44457722849579249}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &56153581303605795
 GameObject:
   m_ObjectHideFlags: 0
