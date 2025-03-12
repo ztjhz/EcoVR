@@ -381,17 +381,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7643281791611635028, guid: 1e27af06efff32844bf397d97f5b09c9, type: 3}
   m_PrefabInstance: {fileID: 4477844}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7250199 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2261963122571156673, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
-  m_PrefabInstance: {fileID: 1471354863}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7661540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,6 +1106,66 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1963993625351412766, guid: 670dc064a517f2c41a77468015634aab, type: 3}
   m_PrefabInstance: {fileID: 249018967}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &36378484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36378485}
+  - component: {fileID: 36378486}
+  m_Layer: 0
+  m_Name: WeatherManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &36378485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36378484}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1004365158}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &36378486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36378484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1107264dd50ff46cbb5b77b9972dabb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button_Sunny:
+    buttonName: Sun Button
+    button: {fileID: 827932402}
+  button_Stormy:
+    buttonName: Rain Button
+    button: {fileID: 1786882218}
+  button_Snowy:
+    buttonName: Snow Button
+    button: {fileID: 521449440}
+  button_Foggy:
+    buttonName: 
+    button: {fileID: 0}
+  button_Randomized:
+    buttonName: 
+    button: {fileID: 0}
+  tenkoku: {fileID: 1129380435}
 --- !u!1001 &37086319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1754,6 +1803,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!84 &75722752
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!4 &85592475 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5603098696198634473, guid: 1f6a8fd12aafb964e885ae2792e18174, type: 3}
@@ -9741,8 +9828,9 @@ MonoBehaviour:
   continueText: {fileID: 441306192}
   currentPanel: {fileID: 481274314}
   nextPanel: {fileID: 0}
-  typewriterSpeed: 0.05
-  sentences: []
+  typewriterSpeed: 0.9
+  sentences:
+  - That's all from me! We hope you enjoy EcoVR!
 --- !u!4 &489084165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2071863648393731842, guid: 1aca0cf4809aed7428560962d782d750, type: 3}
@@ -10389,7 +10477,7 @@ MonoBehaviour:
   continueText: {fileID: 317323309}
   currentPanel: {fileID: 530918346}
   nextPanel: {fileID: 1766143747}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.9
   sentences:
   - Oh hello! Didn't see you there, welcome to EcoVR!
   - My name is Maxi and I will be your guide for this tutorial!
@@ -12410,7 +12498,7 @@ MonoBehaviour:
   continueText: {fileID: 1033996407}
   currentPanel: {fileID: 638808149}
   nextPanel: {fileID: 2143118945}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.9
   sentences:
   - Over here are the Zoom In and Time Lapse sliders!
   - You can use the sliders to either zoom in for a closer look...
@@ -12768,44 +12856,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7643281791611635028, guid: 1e27af06efff32844bf397d97f5b09c9, type: 3}
   m_PrefabInstance: {fileID: 655759295}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &657660719
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 128
-  m_Height: 128
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 94
-  m_ColorFormat: 48
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!4 &667778094 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2740571326733921115, guid: b77fd89dae3eec6429c623cf4dc9f914, type: 3}
@@ -12926,72 +12976,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8311109045169177240, guid: b9331dd8e51e26d48b39d283f4dcefb3, type: 3}
   m_PrefabInstance: {fileID: 934256679}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &684697947
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 684697949}
-  - component: {fileID: 684697948}
-  m_Layer: 0
-  m_Name: AnimalSpawnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &684697948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 684697947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1029a44ffb3c4b99bdea71736b5b291, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preyPrefabs:
-  - {fileID: 3507746843320673371, guid: 4f9eebc977b93d641a58f15164948196, type: 3}
-  - {fileID: 3084024626696190684, guid: f5c8b6dc56a8e634a8f2a0cfbee2941d, type: 3}
-  - {fileID: 4077612351692668892, guid: 0322c9b0c4f4d93418d648ec9405b63d, type: 3}
-  - {fileID: 7677146391431892031, guid: 7ac0f4727b8b02d4b8fd471d4dc47304, type: 3}
-  - {fileID: 8185963723970810583, guid: c36cdfacfaab1584c887c605bc8e7b2f, type: 3}
-  - {fileID: 1047755721396717109, guid: 303d9560b1a0e58499eb70417be2e820, type: 3}
-  - {fileID: 7759253174085040456, guid: 88d08fe5e350f4d4a9ee30664b4a78a9, type: 3}
-  - {fileID: 1852192829216458104, guid: f8c5201dc1428b34f972a12c07308693, type: 3}
-  - {fileID: 9194464393113665397, guid: 66deb053a641195469d3250900cb1810, type: 3}
-  - {fileID: 861079431464677581, guid: 4b877241f1de04940bd8be76121b2646, type: 3}
-  predatorPrefabs:
-  - {fileID: 44457722849579249, guid: d51e17bbcf7a9504cae24bee0113de97, type: 3}
-  - {fileID: 3029702961771229747, guid: a300252317ae09c4882fa593264f26a9, type: 3}
-  - {fileID: 6943659272118897294, guid: 79fb965ef8845694e9364f4b24c987e9, type: 3}
-  initialPreyCount: 5
-  initialPredatorCount: 2
-  maxAnimals: 50
-  spawnRange: 10
-  checkInterval: 10
-  spawnPreyButton: {fileID: 932941375}
-  spawnPredatorButton: {fileID: 1631464293}
---- !u!4 &684697949
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 684697947}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.476776, y: 30.362984, z: 5.446167}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1004365158}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &687494743 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 818455324452792518, guid: 640cbc524cd09ec498c92bbca9751170, type: 3}
@@ -17466,7 +17450,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 684697948}
+      - m_Target: {fileID: 1633603964}
         m_TargetAssemblyTypeName: AnimalSpawner, Assembly-CSharp
         m_MethodName: SpawnPrey
         m_Mode: 1
@@ -17678,17 +17662,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb2834602cd7cc743bb295388ab267e7, type: 3}
---- !u!114 &946631889 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2908317372889638920, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
-  m_PrefabInstance: {fileID: 1471354863}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &958060829 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5638036044195962550, guid: 9910d86121d299649af8a4badba84d01, type: 3}
@@ -18462,13 +18435,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 684697949}
   - {fileID: 1561663080}
   - {fileID: 1421160524}
   - {fileID: 1443098788}
   - {fileID: 1224774377}
   - {fileID: 315018494}
   - {fileID: 992056138}
+  - {fileID: 1633603963}
+  - {fileID: 36378485}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1006538176
@@ -21281,6 +21255,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3021800361227820097, guid: 3da39b9cbf771e24685504dbfdd96764, type: 3}
   m_PrefabInstance: {fileID: 1124739554}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1129380435 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 704595408193292942, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
+  m_PrefabInstance: {fileID: 432278288}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c655283bae7f774188bb4c7bde76095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1131123183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22811,9 +22796,13 @@ MonoBehaviour:
   dialogueText: {fileID: 305113440}
   continueText: {fileID: 102526809}
   currentPanel: {fileID: 1207303832}
-  nextPanel: {fileID: 673111530}
-  typewriterSpeed: 0.05
-  sentences: []
+  nextPanel: {fileID: 481274314}
+  typewriterSpeed: 0.9
+  sentences:
+  - This is the Overall Analytics Button! Click this once you are satisfied with
+    your simulation to go to the Analytics Page!
+  - The Analytics Page has all sorts of cool data from your simulation, from Animal
+    Counts to Heatmaps to even Weather effects!
 --- !u!1 &1210638248
 GameObject:
   m_ObjectHideFlags: 0
@@ -24038,6 +24027,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 011f171ff79d8e84a8c045c594f72c9e, type: 3}
+--- !u!84 &1260344184
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &1260828547
 GameObject:
   m_ObjectHideFlags: 0
@@ -27713,6 +27740,18 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 850752615796694479, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 010e6f936908e44a78e9837195ca090e, type: 2}
+    - target: {fileID: 850752615796694479, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8504814859398337289, guid: 010e6f936908e44a78e9837195ca090e, type: 2}
+    - target: {fileID: 850752615796694479, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 992286955510247898, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -27761,12 +27800,32 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -300
       objectReference: {fileID: 0}
-    - target: {fileID: 2236947485648885348, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
-      propertyPath: m_AnchoredPosition.x
+    - target: {fileID: 2129356444639724694, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2236947485648885348, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236947485648885348, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236947485648885348, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236947485648885348, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471132680210663170, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_Name
+      value: Analytics Instructions Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471132680210663170, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3861472284653350553, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
@@ -27861,6 +27920,38 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5078816728041126608, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078816728041126608, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078816728041126608, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078816728041126608, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078816728041126608, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078816728041126608, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148244775234883707, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 010e6f936908e44a78e9837195ca090e, type: 2}
+    - target: {fileID: 5148244775234883707, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5166040332284745010, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 500
@@ -27906,6 +27997,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8504814859398337289, guid: 010e6f936908e44a78e9837195ca090e, type: 2}
     - target: {fileID: 6009291003649067436, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033640693618517739, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 010e6f936908e44a78e9837195ca090e, type: 2}
+    - target: {fileID: 6033640693618517739, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8504814859398337289, guid: 010e6f936908e44a78e9837195ca090e, type: 2}
+    - target: {fileID: 6033640693618517739, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
@@ -27981,6 +28084,46 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -190
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857195839294357559, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 8174119874944486607, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 500
@@ -27988,6 +28131,14 @@ PrefabInstance:
     - target: {fileID: 8174119874944486607, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8218990428607736444, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 010e6f936908e44a78e9837195ca090e, type: 2}
+    - target: {fileID: 8218990428607736444, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7267027625166275761, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
@@ -27997,7 +28148,8 @@ PrefabInstance:
     - {fileID: 3051970373332577837, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
     - {fileID: 8681143504464241949, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
     - {fileID: 212075006259335277, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5526933881520208350, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1853306003101833106, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       insertIndex: -1
@@ -28018,9 +28170,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2471132680210663170, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1207303837}
-    - targetCorrespondingSourceObject: {fileID: 5526933881520208350, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 673111535}
     - targetCorrespondingSourceObject: {fileID: 7703497297485899856, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 481274319}
@@ -32508,7 +32657,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 684697948}
+      - m_Target: {fileID: 1633603964}
         m_TargetAssemblyTypeName: AnimalSpawner, Assembly-CSharp
         m_MethodName: SpawnPredator
         m_Mode: 1
@@ -32611,6 +32760,67 @@ RenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_ShadowSamplingMode: 2
+--- !u!1 &1633603962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1633603963}
+  - component: {fileID: 1633603964}
+  m_Layer: 0
+  m_Name: AnimalSpawner Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1633603963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633603962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1004365158}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1633603964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633603962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1029a44ffb3c4b99bdea71736b5b291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preyPrefabs:
+  - {fileID: 3507746843320673371, guid: 4f9eebc977b93d641a58f15164948196, type: 3}
+  - {fileID: 3084024626696190684, guid: f5c8b6dc56a8e634a8f2a0cfbee2941d, type: 3}
+  - {fileID: 4077612351692668892, guid: 0322c9b0c4f4d93418d648ec9405b63d, type: 3}
+  - {fileID: 7677146391431892031, guid: 7ac0f4727b8b02d4b8fd471d4dc47304, type: 3}
+  - {fileID: 8185963723970810583, guid: c36cdfacfaab1584c887c605bc8e7b2f, type: 3}
+  predatorPrefabs:
+  - {fileID: 44457722849579249, guid: d51e17bbcf7a9504cae24bee0113de97, type: 3}
+  - {fileID: 3029702961771229747, guid: a300252317ae09c4882fa593264f26a9, type: 3}
+  - {fileID: 6943659272118897294, guid: 79fb965ef8845694e9364f4b24c987e9, type: 3}
+  initialPreyCount: 1
+  initialPredatorCount: 1
+  maxAnimals: 50
+  spawnRange: 10
+  checkInterval: 10
+  spawnPreyButton: {fileID: 0}
+  spawnPredatorButton: {fileID: 0}
 --- !u!1 &1638561395
 GameObject:
   m_ObjectHideFlags: 0
@@ -35207,7 +35417,7 @@ MonoBehaviour:
   continueText: {fileID: 390112964}
   currentPanel: {fileID: 1766143747}
   nextPanel: {fileID: 638808149}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.9
   sentences:
   - EcoVR is an educational tool which allows users to create and simulate ecosystems!
   - We hope with EcoVR you will be able to learn more about the environment and how
@@ -41874,7 +42084,7 @@ MonoBehaviour:
   continueText: {fileID: 1300000689}
   currentPanel: {fileID: 2143118945}
   nextPanel: {fileID: 1207303832}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.9
   sentences:
   - These here are buttons which you can use during the simulation!
   - Choose to spawn more predators or prey, or cycle the weather between rainy, snowy
