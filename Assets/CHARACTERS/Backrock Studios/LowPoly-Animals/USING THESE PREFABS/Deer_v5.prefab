@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 1546184107774445958}
   - component: {fileID: -6826644663152165023}
   - component: {fileID: 1445676592978040020}
+  - component: {fileID: -998129976468123358}
   m_Layer: 0
   m_Name: Deer_v5
   m_TagString: Untagged
@@ -640,6 +641,29 @@ MonoBehaviour:
   turnSpeed: 50
   changeDirectionInterval: 6
   idleDuration: 4
+--- !u!136 &-998129976468123358
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852192829216458104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1974494386975402576
 GameObject:
   m_ObjectHideFlags: 0

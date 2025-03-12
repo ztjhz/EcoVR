@@ -46,8 +46,8 @@ public class AnimalAnalytics : MonoBehaviour
         Array.Copy(preys, 0, animals, 0, preys.Length);
         Array.Copy(predators, 0, animals, preys.Length, predators.Length);
 
-        animalCounts.Clear();
-        animalPositions.Clear();
+        animalCounts = animalCounts.ToDictionary(kvp => kvp.Key, kvp => 0);
+        animalPositions = animalPositions.ToDictionary(kvp => kvp.Key, kvp => new List<Vector3>());
 
         foreach (GameObject animal in animals)
         {
