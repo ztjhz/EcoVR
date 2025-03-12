@@ -95,9 +95,9 @@ public class AnimalAnalytics : MonoBehaviour
         return name;
     }
 
-    public int GetAnimalCount(string animalType)
+    public Dictionary<string, int> GetAnimalCount()
     {
-        return animalCounts.ContainsKey(animalType) ? animalCounts[animalType] : 0;
+        return animalCounts;
     }
 
     public List<Vector3> GetAnimalPositions(string animalType)
