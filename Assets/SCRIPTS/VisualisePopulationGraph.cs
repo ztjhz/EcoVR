@@ -47,8 +47,10 @@ public class VisualisePopulationGraph : MonoBehaviour
                 if (data.animalType == "prey")
                     serie.symbol.type = SymbolType.EmptyCircle;
                 else
+                {
                     serie.symbol.type = SymbolType.EmptyTriangle;
-                
+                    serie.EnsureComponent<AreaStyle>();
+                }
                 serie.symbol.size = 8;
                 graphCount++;
             }
