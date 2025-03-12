@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: -6324396526896385111}
   - component: {fileID: 7883080285363025154}
   - component: {fileID: 5193409529509906006}
+  - component: {fileID: -498447753956960333}
   m_Layer: 0
   m_Name: Deer_v2
   m_TagString: Untagged
@@ -406,6 +407,34 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-498447753956960333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047755721396717109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5010bff315c6e4c8a413f69e3d6458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  animator: {fileID: 0}
+  walkForwardAnimation: walk_forward
+  idleAnimation: idle
+  runForwardAnimation: run_forward
+  trotForwardAnimation: trot_forward
+  walkBackwardsAnimation: walk_backwards
+  turn90LeftAnimation: turn_90_L
+  turn90RightAnimation: turn_90_R
+  standToSitAnimation: stand_to_sit
+  sitToStandAnimation: sit_to_stand
+  moveSpeed: 2
+  rotationSpeed: 100
+  detectionRange: 10
+  fleeDistance: 20
+  predatorPrefabs: []
 --- !u!1 &1277774562128385785
 GameObject:
   m_ObjectHideFlags: 0
