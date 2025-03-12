@@ -66,7 +66,8 @@ public class VisualisePopulationDistribution : MonoBehaviour
 
         foreach (AnimalDataPoint data in animalHistoryFromTime[time])
         {
-            string animalCategory = data.animalType; // TODO: group similar animals together
+            // Group all the same species together (e.g. Deer_v4 and Deer_v5)
+            string animalCategory = AnimalAnalytics.CleanAnimalName(data.animalName);
 
             if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))
             {

@@ -20,9 +20,6 @@ public class VisualisePopulationGraph : MonoBehaviour
         int graphCount = 0;
         int currTime = -1;
 
-
-
-        Debug.Log(animalHistory.Count);
         foreach (AnimalDataPoint data in animalHistory) {
             // Since the list is already sorted by time
             if (currTime != data.time)
@@ -31,7 +28,8 @@ public class VisualisePopulationGraph : MonoBehaviour
                 chart.AddXAxisData(currTime.ToString());
             }
 
-            string animalCategory = data.animalType; // in the future can group similar animals together
+            // Group all the same species together (e.g. Deer_v4 and Deer_v5)
+            string animalCategory = AnimalAnalytics.CleanAnimalName(data.animalName);
 
             if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))
             {
