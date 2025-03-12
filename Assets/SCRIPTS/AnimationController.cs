@@ -26,8 +26,6 @@ namespace Ursaanimation.CubicFarmAnimals
         public float detectionRange = 10f;  // Range to detect predators
         public float fleeDistance = 20f;   // Distance to flee from predators
 
-        [SerializeField] private List<GameObject> predatorPrefabs;  // List to hold predator prefabs
-
         private NavMeshAgent agent;
         private Transform detectedPredator;
         private Vector3 targetDirection;
@@ -186,6 +184,10 @@ namespace Ursaanimation.CubicFarmAnimals
 
         void HandleDeadState()
         {
+            FindObjectOfType<AnimalSpawner>()?.DecrementPreyCount(gameObject);
+            if (spawner != null)
+                spawner.DecrementPreyCount(gameObject);
+
             Destroy(gameObject, 2f);  // Destroy the object after 2 seconds.
             Debug.Log("Current State: Dead");
         }
@@ -253,17 +255,15 @@ namespace Ursaanimation.CubicFarmAnimals
             GameObject closestPredator = null;
             float closestDistance = detectionRange;
 
-            foreach (GameObject predatorPrefab in predatorPrefabs)
+            GameObject[] allPredators = GameObject.FindGameObjectsWithTag("predator");
+            foreach (GameObject predator in allPredators)
             {
-                if (predatorPrefab != null)
+                // Calculate the distance from the prey to the predator
+                float distance = Vector3.Distance(transform.position, predator.transform.position);
+                if (distance < closestDistance)
                 {
-                    // Calculate the distance from the prey to the predator
-                    float distance = Vector3.Distance(transform.position, predatorPrefab.transform.position);
-                    if (distance < closestDistance)
-                    {
-                        closestPredator = predatorPrefab;
-                        closestDistance = distance;
-                    }
+                    closestPredator = predator;
+                    closestDistance = distance;
                 }
             }
 
@@ -273,6 +273,12 @@ namespace Ursaanimation.CubicFarmAnimals
                 Debug.Log("Predator detected! Transitioning to Running.");
                 SetState(AIState.Running);
             }
+        }
+
+        // Called by predator
+        public void Die()
+        {
+            SetState(AIState.Dead);
         }
 
         // Get a random position on the NavMesh
