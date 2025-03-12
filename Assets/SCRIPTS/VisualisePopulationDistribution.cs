@@ -66,15 +66,22 @@ public class VisualisePopulationDistribution : MonoBehaviour
 
         foreach (AnimalDataPoint data in animalHistoryFromTime[time])
         {
-            string animalCategory = data.animalType; // TODO: group similar animals together
+            // Group all the same species together (e.g. Deer_v4 and Deer_v5)
+            string animalCategory = AnimalAnalytics.CleanAnimalName(data.animalName);
 
             if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))
             {
                 graphIndexFromAnimalCategory[animalCategory] = graphCount;
                 Scatter serie = chart.AddSerie<Scatter>(animalCategory);
-                serie.symbol.type = SymbolType.Circle; // TODO: change icon based on prey/predator
+
+                if (data.animalType == "prey")
+                    serie.symbol.type = SymbolType.Circle;
+                else
+                    serie.symbol.type = SymbolType.Triangle;
+
                 serie.symbol.size = 10;
-                serie.itemStyle.opacity = 0.5f;
+                serie.itemStyle.opacity = 0.8f;
+                serie.AnimationEnable(false);
                 graphCount++;
             }
 

@@ -152,6 +152,6 @@ public class ConwayPopulationGrowth : MonoBehaviour
 
     private string CleanName(string name)
     {
-        return name.Replace("(Clone)", "").Trim();
+        return AnimalAnalytics.CleanAnimalName(name.Replace("(Clone)", "").Trim());
     }
 }

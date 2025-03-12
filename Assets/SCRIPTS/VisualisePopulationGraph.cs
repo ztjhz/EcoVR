@@ -17,32 +17,51 @@ public class VisualisePopulationGraph : MonoBehaviour
 
         List<AnimalDataPoint> animalHistory = AnimalAnalytics.Instance.GetAnimalHistory();
         Dictionary<string, int> graphIndexFromAnimalCategory = new Dictionary<string, int>();
+        HashSet<string> animalAdded = new HashSet<string>();
         int graphCount = 0;
         int currTime = -1;
+        int currDataIndex = -1;
 
-
-
-        Debug.Log(animalHistory.Count);
         foreach (AnimalDataPoint data in animalHistory) {
             // Since the list is already sorted by time
             if (currTime != data.time)
             {
                 currTime = data.time;
                 chart.AddXAxisData(currTime.ToString());
+                currDataIndex += 1;
+                animalAdded.Clear();
             }
 
-            string animalCategory = data.animalType; // in the future can group similar animals together
+            // Group all the same species together (e.g. Deer_v4 and Deer_v5)
+            string animalCategory = AnimalAnalytics.CleanAnimalName(data.animalName);
 
             if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))
             {
                 graphIndexFromAnimalCategory[animalCategory] = graphCount;
-                chart.AddSerie<Line>(animalCategory);
+                Line serie = chart.AddSerie<Line>(animalCategory);
+
+                if (data.animalType == "prey")
+                    serie.symbol.type = SymbolType.EmptyCircle;
+                else
+                {
+                    serie.symbol.type = SymbolType.EmptyTriangle;
+                    serie.EnsureComponent<AreaStyle>();
+                }
+                serie.symbol.size = 8;
                 graphCount++;
             }
 
             int index = graphIndexFromAnimalCategory[animalCategory];
-            chart.AddData(index, data.count);
-            
+            if (animalAdded.Contains(animalCategory))
+            {
+                double currCount = chart.GetData(index, currDataIndex);
+                chart.UpdateData(index, currDataIndex, currCount + data.count);
+            }
+            else
+            {
+                chart.AddData(index, data.count);
+                animalAdded.Add(animalCategory);
+            }
         }
     }
 
