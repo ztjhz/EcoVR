@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using XCharts.Runtime;
+using static XCharts.Runtime.Axis;
 
 public class VisualisePopulationDistribution : MonoBehaviour
 {
@@ -37,9 +38,49 @@ public class VisualisePopulationDistribution : MonoBehaviour
 
         isInitialized = true;
 
+        FixChartAxes();
+
         // Display the first available time step
         int firstTime = animalHistoryFromTime.Keys.First();
         UpdateGraph(firstTime);
+    }
+
+    private void FixChartAxes()
+    {
+        double minX, maxX, minZ, maxZ;
+
+        minX = double.MaxValue;
+        maxX = double.MinValue;
+        minZ = double.MaxValue;
+        maxZ = double.MinValue;
+
+        foreach (var timeStep in animalHistoryFromTime.Values)
+        {
+            foreach (var data in timeStep)
+            {
+                foreach (Vector3 pos in data.positions)
+                {
+                    if (pos.x < minX) minX = pos.x;
+                    if (pos.x > maxX) maxX = pos.x;
+                    if (pos.z < minZ) minZ = pos.z;
+                    if (pos.z > maxZ) maxZ = pos.z;
+                }
+            }
+        }
+
+        // Ensure reasonable defaults if no data exists
+        if (minX == double.MaxValue) minX = 0;
+        if (maxX == double.MinValue) maxX = 300;
+        if (minZ == double.MaxValue) minZ = 0;
+        if (maxZ == double.MinValue) maxZ = 300;
+
+        chart.GetChartComponent<XAxis>().minMaxType = AxisMinMaxType.Custom;
+        chart.GetChartComponent<XAxis>().min = minX - 10;
+        chart.GetChartComponent<XAxis>().max = maxX + 10;
+
+        chart.GetChartComponent<YAxis>().minMaxType = AxisMinMaxType.Custom;
+        chart.GetChartComponent<YAxis>().min = minZ - 10;
+        chart.GetChartComponent<YAxis>().max = maxZ + 10;
     }
 
     public void UpdateGraph(int time)
@@ -66,15 +107,22 @@ public class VisualisePopulationDistribution : MonoBehaviour
 
         foreach (AnimalDataPoint data in animalHistoryFromTime[time])
         {
-            string animalCategory = data.animalType; // TODO: group similar animals together
+            // Group all the same species together (e.g. Deer_v4 and Deer_v5)
+            string animalCategory = AnimalAnalytics.CleanAnimalName(data.animalName);
 
             if (!graphIndexFromAnimalCategory.ContainsKey(animalCategory))
             {
                 graphIndexFromAnimalCategory[animalCategory] = graphCount;
                 Scatter serie = chart.AddSerie<Scatter>(animalCategory);
-                serie.symbol.type = SymbolType.Circle; // TODO: change icon based on prey/predator
+
+                if (data.animalType == "prey")
+                    serie.symbol.type = SymbolType.Circle;
+                else
+                    serie.symbol.type = SymbolType.Triangle;
+
                 serie.symbol.size = 10;
-                serie.itemStyle.opacity = 0.5f;
+                serie.itemStyle.opacity = 0.8f;
+                serie.AnimationEnable(false);
                 graphCount++;
             }
 

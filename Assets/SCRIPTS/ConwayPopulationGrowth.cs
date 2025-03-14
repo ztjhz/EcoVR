@@ -1,132 +1,157 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ConwayPopulationGrowth : MonoBehaviour
 {
-    public int gridSize = 600; // 600x600 coordinate-based grid
-    public int cellSize = 20;  // Each cell represents a 20x20 area
-    private int[,] grid;
-    private int numCells;
-    private Vector3 gridCenter;
-    [SerializeField] private List<GameObject> preyPrefabs; // List of prey prefabs
-    [SerializeField] private List<GameObject> predatorPrefabs; // List of predator prefabs
+    //[SerializeField] private List<GameObject> preyPrefabs;
+    //[SerializeField] private List<GameObject> predatorPrefabs;
     private AnimalSpawner spawner;
-    
+    private float timeElapsed = 0f;
+    private float updateIntervalInSeconds = 10f;
+
+    // Death controls
+    // [Overpopulation] Preys compete for the same food (grass) in an area
+    private float preyConsumptionRadius = 100;
+    private int preyCompetitionThreshold = 10;
+
+    // [Overpopulation] Predators compete for the same food (prey) in an area
+    private float predatorConsumptionRadius = 300;
+    private int predatorCompetitionThreshold = 5;
+
+    // [Underpopulation] If animals are too isolated, they may feel lonely or cannot survive on their own
+    private float companionRadius = 100;
+    private int companionFloor = 2; // need at least 1 companion including itself
+    private float deathByLonelinessProb = 0.8f;
+
+    // Birth controls
+    // [Reproduction]
+    private float reproductionRadius = 50; // how close animials must be to reproduce
+    private int reproductionFloor = 2; // how many animals are needed to reproduce
+    private float reproductionProb = 0.5f; // how likely animals will reproduce if together
+
+
     void Start()
     {
         spawner = FindObjectOfType<AnimalSpawner>();
         if (spawner == null)
             Debug.LogError("AnimalSpawner not found in the scene!");
-        
-        numCells = gridSize / cellSize;
-        grid = new int[numCells, numCells];
-        gridCenter = Camera.main.transform.position; // Set grid center to the main camera
-        InitializeGrid();
     }
 
     void Update()
     {
-        if (Time.frameCount % 30 == 0) // Update every 30 frames (~every half-second)
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed >= updateIntervalInSeconds)
         {
             UpdateGameOfLife();
-        }
-    }
-
-    void InitializeGrid()
-    {
-        for (int x = 0; x < numCells; x++)
-        {
-            for (int y = 0; y < numCells; y++)
-            {
-                grid[x, y] = Random.Range(0, 2); // Randomly populate with prey (1) or empty (0)
-            }
+            timeElapsed = 0f;
         }
     }
 
     void UpdateGameOfLife()
     {
-        int[,] newGrid = new int[numCells, numCells];
+        Debug.Log("[LOG] Updating Game of Life...");
 
-        for (int x = 0; x < numCells; x++)
+        //GameObject[] allPrey = GameObject.FindObjectsOfType<GameObject>().Where(obj => preyPrefabs.Contains(obj)).ToArray();
+        //GameObject[] allPredator = GameObject.FindObjectsOfType<GameObject>().Where(obj => predatorPrefabs.Contains(obj)).ToArray();
+        GameObject[] allPrey = GameObject.FindGameObjectsWithTag("prey");
+        GameObject[] allPredator = GameObject.FindGameObjectsWithTag("predator");
+
+        Debug.Log($"[DEBUG] prey count {allPrey.Length}, predator count {allPredator.Length}");
+
+        foreach (GameObject prey in allPrey)
         {
-            for (int y = 0; y < numCells; y++)
+            int companionCount = CountCompanions(prey);
+            int mateCount = CountReproductionMates(prey);
+            int competitorCount = CountCompetitions(prey, preyConsumptionRadius);
+
+            string preyName = CleanName(prey.name);
+
+            Debug.Log($"[DEBUG] {preyName} - companion: {companionCount} - mate: {mateCount} - competitor: {competitorCount}");
+
+            // too lonely
+            if (companionCount < companionFloor && Random.value < deathByLonelinessProb)
             {
-                int neighbors = CountNeighbors(x, y);
-                
-                if (grid[x, y] == 1) // If prey exists
-                {
-                    if (neighbors < 2 || neighbors > 3)
-                        newGrid[x, y] = 0; // Prey dies
-                    else
-                        newGrid[x, y] = 1; // Prey survives
-                }
-                else // If empty
-                {
-                    if (neighbors == 3)
-                        newGrid[x, y] = 1; // New prey is born
-                }
+                spawner.DecrementPreyCount(prey);
+                Debug.Log($"[LOG] {preyName} died of loneliness.");
+            }
+
+            // too much competition
+            if (competitorCount > preyCompetitionThreshold)
+            {
+                spawner.DecrementPreyCount(prey);
+                Debug.Log($"[LOG] {preyName} died of overpopulation.");
+            }
+
+            // reproduce
+            if (mateCount > reproductionFloor && Random.value < reproductionProb)
+            {
+                spawner.SpawnPrey(prey);
+                Debug.Log($"[LOG] {preyName} reproduced!");
             }
         }
 
-        ApplyGridChanges(newGrid);
-        grid = newGrid;
-    }
 
-    int CountNeighbors(int x, int y)
-    {
-        int count = 0;
-        for (int i = -1; i <= 1; i++)
+        foreach (GameObject predator in allPredator)
         {
-            for (int j = -1; j <= 1; j++)
+            int companionCount = CountCompanions(predator);
+            int mateCount = CountReproductionMates(predator);
+            int competitorCount = CountCompetitions(predator, predatorConsumptionRadius);
+
+            string predatorName = CleanName(predator.name);
+
+            Debug.Log($"[DEBUG] {predatorName} - companion: {companionCount} - mate: {mateCount} - competitor: {competitorCount}");
+
+            // too lonely
+            if (companionCount < companionFloor && Random.value < deathByLonelinessProb)
             {
-                if (i == 0 && j == 0) continue;
-                int nx = x + i, ny = y + j;
-                if (nx >= 0 && nx < numCells && ny >= 0 && ny < numCells)
-                    count += grid[nx, ny];
+                spawner.DecrementPredatorCount(predator);
+                Debug.Log($"[LOG] {predatorName} died of loneliness.");
+            }
+
+            // too much competition
+            if (competitorCount > predatorCompetitionThreshold)
+            {
+                spawner.DecrementPredatorCount(predator);
+                Debug.Log($"[LOG] {predatorName} died of overpopulation.");
+            }
+
+            // reproduce
+            if (mateCount > reproductionFloor && Random.value < reproductionProb)
+            {
+                spawner.SpawnPredator(predator);
+                Debug.Log($"[LOG] {predatorName} reproduced!");
             }
         }
-        return count;
+        Debug.Log("[LOG] Game of Life updated!");
     }
 
-    void ApplyGridChanges(int[,] newGrid)
+    private int CountCompanions(GameObject animal)
     {
-        for (int x = 0; x < numCells; x++)
-        {
-            for (int y = 0; y < numCells; y++)
-            {
-                Vector3 worldPos = GridToWorld(x, y);
-
-                if (grid[x, y] == 0 && newGrid[x, y] == 1)
-                {
-                    // Use existing SpawnPrey method without prefab selection
-                    spawner.SpawnPrey();
-                }
-                else if (grid[x, y] == 1 && newGrid[x, y] == 0)
-                {
-                    PreyAI prey = FindPreyAt(worldPos);
-                    if (prey)
-                        prey.Die();
-                }
-            }
-        }
+        Collider[] companions = Physics.OverlapSphere(animal.transform.position, companionRadius)
+            .Where(p => p.tag == animal.tag)
+            .ToArray();
+        return companions.Length;
     }
 
-
-    Vector3 GridToWorld(int x, int y)
+    private int CountCompetitions(GameObject animal, float competitionRadius)
     {
-        float worldX = gridCenter.x - gridSize / 2 + x * cellSize;
-        float worldY = gridCenter.z - gridSize / 2 + y * cellSize;
-        return new Vector3(worldX, 0, worldY);
+        Collider[] competitors = Physics.OverlapSphere(animal.transform.position, competitionRadius)
+            .Where(p => p.tag == animal.tag)
+            .ToArray();
+        return competitors.Length;
     }
 
-    PreyAI FindPreyAt(Vector3 position)
+    private int CountReproductionMates(GameObject animal)
     {
-        Collider[] colliders = Physics.OverlapSphere(position, cellSize / 2);
-        foreach (Collider col in colliders)
-        {
-            PreyAI prey = col.GetComponent<PreyAI>();
-            if (prey) return prey;
-        }
-        return null;
+        Collider[] mates = Physics.OverlapSphere(animal.transform.position, reproductionRadius)
+            .Where(p => CleanName(p.name) == CleanName(animal.name))
+            .ToArray();
+        return mates.Length;
+    }
+
+    private string CleanName(string name)
+    {
+        return AnimalAnalytics.CleanAnimalName(name.Replace("(Clone)", "").Trim());
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Ursaanimation.CubicFarmAnimals;
 
 public class PredatorAI : MonoBehaviour
 {
@@ -24,8 +25,6 @@ public class PredatorAI : MonoBehaviour
     private GameObject targetPrey;
     private float timeSinceLastHunt = 0f;
     private AnimalSpawner spawner;
-
-    [SerializeField] private List<GameObject> preyPrefabs;
 
     void Start()
     {
@@ -158,12 +157,10 @@ public class PredatorAI : MonoBehaviour
         GameObject closestPrey = null;
         float closestDistance = detectionRange;
 
-        GameObject[] allPrey = GameObject.FindObjectsOfType<GameObject>().Where(obj => preyPrefabs.Contains(obj)).ToArray();
+        GameObject[] allPrey = GameObject.FindGameObjectsWithTag("prey");
 
         foreach (GameObject prey in allPrey)
         {
-            if (!preyPrefabs.Contains(prey)) continue;
-
             float distance = Vector3.Distance(transform.position, prey.transform.position);
             if (distance < closestDistance)
             {
@@ -194,7 +191,7 @@ public class PredatorAI : MonoBehaviour
             animator.SetTrigger("Attack");
         }
 
-        PreyAI prey = targetPrey.GetComponent<PreyAI>();
+        AnimationController prey = targetPrey.GetComponent<AnimationController>();
         if (prey != null)
         {
             prey.Die();

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using System.Linq;
 using System;
 
@@ -10,6 +9,7 @@ public class AnimalAnalytics : MonoBehaviour
 
     private Dictionary<string, int> animalCounts = new Dictionary<string, int>();
     private Dictionary<string, List<Vector3>> animalPositions = new Dictionary<string, List<Vector3>>();
+    private Dictionary<string, string> animalTypes = new Dictionary<string, string>();
     private List<AnimalDataPoint> animalHistory = new List<AnimalDataPoint>();
     
     private float timeElapsed = 0f;
@@ -46,23 +46,27 @@ public class AnimalAnalytics : MonoBehaviour
         Array.Copy(preys, 0, animals, 0, preys.Length);
         Array.Copy(predators, 0, animals, preys.Length, predators.Length);
 
-        animalCounts.Clear();
-        animalPositions.Clear();
+        animalCounts = animalCounts.ToDictionary(kvp => kvp.Key, kvp => 0);
+        animalPositions = animalPositions.ToDictionary(kvp => kvp.Key, kvp => new List<Vector3>());
 
         foreach (GameObject animal in animals)
         {
-            string animalType = animal.name.Replace("(Clone)", "").Trim();
+            string animalName = animal.name.Replace("(Clone)", "").Trim();
             Vector3 position = animal.transform.position;
 
             // Count animals
-            if (!animalCounts.ContainsKey(animalType))
-                animalCounts[animalType] = 0;
-            animalCounts[animalType]++;
+            if (!animalCounts.ContainsKey(animalName))
+                animalCounts[animalName] = 0;
+            animalCounts[animalName]++;
 
             // Store positions
-            if (!animalPositions.ContainsKey(animalType))
-                animalPositions[animalType] = new List<Vector3>();
-            animalPositions[animalType].Add(position);
+            if (!animalPositions.ContainsKey(animalName))
+                animalPositions[animalName] = new List<Vector3>();
+            animalPositions[animalName].Add(position);
+
+            // Store animal type
+            if (!animalTypes.ContainsKey(animalName))
+                animalTypes[animalName] = animal.tag;
         }
     }
 
@@ -73,14 +77,27 @@ public class AnimalAnalytics : MonoBehaviour
         {
             List<Vector3> positions = animalPositions[animal.Key];
             string positionsString = string.Join(", ", positions.Select(p => $"({p.x:F2}, {p.y:F2}, {p.z:F2})"));
-            animalHistory.Add(new AnimalDataPoint(currTime, animal.Key, animal.Value, positions));
+            animalHistory.Add(new AnimalDataPoint(currTime, animal.Key, animalTypes[animal.Key], animal.Value, positions));
             Debug.Log($"[LOG] Time: {currTime}, {animal.Key} Count: {animal.Value}, Positions {positionsString}");
         }
     }
 
-    public int GetAnimalCount(string animalType)
+    public static string CleanAnimalName(string name)
     {
-        return animalCounts.ContainsKey(animalType) ? animalCounts[animalType] : 0;
+        // Convert animal name to root form (e.g. SK_Goat_white -> Goat)
+        string[] parts = name.Split('_');
+
+        if (parts.Length == 2)
+            return parts[0];
+        if (parts.Length == 3)
+            return parts[1];
+
+        return name;
+    }
+
+    public Dictionary<string, int> GetAnimalCount()
+    {
+        return animalCounts;
     }
 
     public List<Vector3> GetAnimalPositions(string animalType)
@@ -98,13 +115,15 @@ public class AnimalAnalytics : MonoBehaviour
 public class AnimalDataPoint
 {
     public int time;
-    public string animalType;
+    public string animalName;
+    public string animalType; // prey or predator
     public int count;
     public List<Vector3> positions;
 
-    public AnimalDataPoint(int time, string animalType, int count, List<Vector3> positions)
+    public AnimalDataPoint(int time, string animalName, string animalType, int count, List<Vector3> positions)
     {
         this.time = time;
+        this.animalName = animalName;
         this.animalType = animalType;
         this.count = count;
         this.positions = positions;

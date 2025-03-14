@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class AnimalSpawner : MonoBehaviour
 {
@@ -57,9 +58,24 @@ public class AnimalSpawner : MonoBehaviour
             SpawnPreyInternal();
     }
 
+    public void SpawnPrey(GameObject prey)
+    {
+        if (currentPreyCount >= maxAnimals) return;
+
+        SpawnPreyInternal(prey);
+    }
+
     private void SpawnPreyInternal()
     {
+        // Random prey
         GameObject preyPrefab = preyPrefabs[Random.Range(0, preyPrefabs.Length)];
+        SpawnPreyInternal(preyPrefab);
+    }
+
+    private void SpawnPreyInternal(GameObject preyPrefab)
+    {
+        if (preyPrefab == null) return;
+
         Vector3 spawnPosition = GetSpawnPosition();
         GameObject newPrey = Instantiate(preyPrefab, spawnPosition, Quaternion.identity);
         activePrey.Add(newPrey);
@@ -74,9 +90,21 @@ public class AnimalSpawner : MonoBehaviour
             Debug.Log("Max Predator Limit Reached!");
     }
 
+    public void SpawnPredator(GameObject predator)
+    {
+        if (currentPredatorCount >= maxAnimals) return;
+
+        SpawnPredatorInternal(predator);
+    }
+
     private void SpawnPredatorInternal()
     {
         GameObject predatorPrefab = predatorPrefabs[Random.Range(0, predatorPrefabs.Length)];
+        SpawnPredatorInternal(predatorPrefab);
+    }
+
+    private void SpawnPredatorInternal(GameObject predatorPrefab)
+    {
         Vector3 spawnPosition = GetSpawnPosition();
         GameObject newPredator = Instantiate(predatorPrefab, spawnPosition, Quaternion.identity);
         activePredators.Add(newPredator);
