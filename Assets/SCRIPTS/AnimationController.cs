@@ -35,7 +35,6 @@ namespace Ursaanimation.CubicFarmAnimals
         private float animationCooldownTime = 0.5f;  // Cooldown time between animations (in seconds)
         private float currentCooldownTime = 0f;  // Current cooldown time
 
-
         void Start()
         {
             animator = GetComponent<Animator>();
@@ -234,7 +233,7 @@ namespace Ursaanimation.CubicFarmAnimals
                         break;
 
                     case AIState.Eating:
-                        animator.Play(standToSitAnimation);  
+                        animator.Play(standToSitAnimation);
                         break;
 
                     case AIState.Running:

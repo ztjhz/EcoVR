@@ -22,7 +22,7 @@ public class PredatorAI : MonoBehaviour
     public HungerState hungerLevel = HungerState.NotHungry;
     private float hungerTimer = 0f;
     private const float dayDuration = 24 * 60 * 60; // 1 day in seconds
-    
+
     private NavMeshAgent agent;
     private GameObject targetPrey;
     private float timeSinceLastHunt = 0f;
@@ -214,7 +214,7 @@ public class PredatorAI : MonoBehaviour
                 hungerLevel = HungerState.NotHungry; // Eating at Level 1 or 2 resets fully
             }
 
-            timeSinceLastHunt = 0f; 
+            timeSinceLastHunt = 0f;
             hungerTimer = 0f; // Reset hunger timer
         }
 
