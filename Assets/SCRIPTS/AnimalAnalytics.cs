@@ -1,4 +1,5 @@
 using UnityEngine;
+using Ursaanimation.CubicFarmAnimals;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -11,7 +12,7 @@ public class AnimalAnalytics : MonoBehaviour
     private Dictionary<string, List<Vector3>> animalPositions = new Dictionary<string, List<Vector3>>();
     private Dictionary<string, string> animalTypes = new Dictionary<string, string>();
     private List<AnimalDataPoint> animalHistory = new List<AnimalDataPoint>();
-    
+
     private float timeElapsed = 0f;
     private float logIntervalInSeconds = 5f;
 
@@ -52,7 +53,10 @@ public class AnimalAnalytics : MonoBehaviour
         foreach (GameObject animal in animals)
         {
             string animalName = animal.name.Replace("(Clone)", "").Trim();
+            animalName = CleanAnimalName(animalName);
             Vector3 position = animal.transform.position;
+
+            Debug.Log($"Tracking animal: {animalName}");
 
             // Count animals
             if (!animalCounts.ContainsKey(animalName))
