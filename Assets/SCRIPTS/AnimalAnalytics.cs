@@ -109,6 +109,22 @@ public class AnimalAnalytics : MonoBehaviour
         return animalPositions.ContainsKey(animalType) ? animalPositions[animalType] : new List<Vector3>();
     }
 
+    public string GetAnimalType(string animalName)
+    {
+        string cleanedName = CleanAnimalName(animalName);
+
+        foreach (var kvp in animalTypes)
+        {
+            if (CleanAnimalName(kvp.Key) == cleanedName)
+            {
+                return kvp.Value;
+            }
+        }
+
+        Debug.LogWarning($"Animal type for {animalName} not found!");
+        return "Unknown";
+    }
+
     public List<AnimalDataPoint> GetAnimalHistory()
     {
         return animalHistory;
@@ -131,5 +147,10 @@ public class AnimalDataPoint
         this.animalType = animalType;
         this.count = count;
         this.positions = positions;
+    }
+
+    public override string ToString()
+    {
+        return $"[Time: {time}, Name: {animalName}, Type: {animalType}, Count: {count}]";
     }
 }
