@@ -68,7 +68,7 @@ public class IntroMenu : MonoBehaviour
         textDisplay.SetActive(true);
         TextMeshProUGUI textComponent = textDisplay.GetComponent<TextMeshProUGUI>();
 
-        string[] messages = { "Hey you.", "Yes. You.", "Come closer...", "Don't be afraid...", "A little more...", "Almost there...", "Only the brave gets to see it..." };
+        string[] messages = { "Hey you.", "Yes. You.", "Interested in the eco-system?", "To learn the evolution of food chain?", "You can find your answers here." };
 
         foreach (string message in messages)
         {
