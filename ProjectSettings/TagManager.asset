@@ -6,6 +6,9 @@ TagManager:
   tags:
   - predator
   - prey
+  - Grabbable
+  - Water
+  - Food
   layers:
   - Default
   - TransparentFX
