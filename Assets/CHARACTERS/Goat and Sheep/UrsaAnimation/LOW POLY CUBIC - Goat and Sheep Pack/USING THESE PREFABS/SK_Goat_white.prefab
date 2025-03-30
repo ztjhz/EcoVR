@@ -3210,6 +3210,7 @@ GameObject:
   - component: {fileID: 4341772780342309734}
   - component: {fileID: -3262324390639469515}
   - component: {fileID: -5958901252599412723}
+  - component: {fileID: -2696790245148888611}
   m_Layer: 0
   m_Name: SK_Goat_white
   m_TagString: Untagged
@@ -3304,10 +3305,6 @@ MonoBehaviour:
   rotationSpeed: 100
   detectionRange: 15
   fleeDistance: 20
-  predatorPrefabs:
-  - {fileID: 44457722849579249, guid: d51e17bbcf7a9504cae24bee0113de97, type: 3}
-  - {fileID: 3029702961771229747, guid: a300252317ae09c4882fa593264f26a9, type: 3}
-  - {fileID: 6943659272118897294, guid: 79fb965ef8845694e9364f4b24c987e9, type: 3}
 --- !u!135 &-3262324390639469515
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3356,6 +3353,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &-2696790245148888611
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3084024626696190684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0.5}
 --- !u!1 &3084024626740517228
 GameObject:
   m_ObjectHideFlags: 0
