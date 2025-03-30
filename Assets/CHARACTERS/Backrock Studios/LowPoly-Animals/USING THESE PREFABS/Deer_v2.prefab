@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 7883080285363025154}
   - component: {fileID: 5193409529509906006}
   - component: {fileID: -498447753956960333}
+  - component: {fileID: 7760595463525600841}
   m_Layer: 0
   m_Name: Deer_v2
   m_TagString: Untagged
@@ -434,6 +435,18 @@ MonoBehaviour:
   rotationSpeed: 100
   detectionRange: 10
   fleeDistance: 20
+--- !u!114 &7760595463525600841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047755721396717109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ddf8599b6f787e42a1278a7022911eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1277774562128385785
 GameObject:
   m_ObjectHideFlags: 0
