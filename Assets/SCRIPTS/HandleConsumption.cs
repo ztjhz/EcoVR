@@ -9,27 +9,29 @@ public class HandleConsumption : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (canBeFed && other.CompareTag("Food"))
-            FeedFood();
+            FeedFood(other.gameObject);
         if (canBeFed && other.CompareTag("Water"))
-            FeedWater();
+            FeedWater(other.gameObject);
     }
 
-    private void FeedFood()
+    private void FeedFood(GameObject food)
     {
         if (!canBeFed) return;
 
         canBeFed = false;
+        food.SetActive(false);
 
         Invoke(nameof(ResetFeedCooldown), feedCooldown);
 
         Debug.Log("Feed food!");
     }
 
-    private void FeedWater()
+    private void FeedWater(GameObject water)
     {
         if (!canBeFed) return;
 
         canBeFed = false;
+        water.SetActive(false);
 
         Invoke(nameof(ResetFeedCooldown), feedCooldown);
 

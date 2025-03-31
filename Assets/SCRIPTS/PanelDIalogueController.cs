@@ -20,6 +20,7 @@ public class PanelDialogueController : MonoBehaviour
     void Start()
     {
         continueText.gameObject.SetActive(false); // Hide "Click to Continue" initially
+        DisableTextGlow();
         StartCoroutine(TypeSentence(sentences[currentSentenceIndex]));
     }
 
@@ -81,6 +82,18 @@ public class PanelDialogueController : MonoBehaviour
             {
                 nextPanel.SetActive(true);
             }
+        }
+    }
+
+    void DisableTextGlow()
+    {
+        Material material = dialogueText.fontSharedMaterial;
+
+        if (material != null)
+        {
+            // Reset the glow power and color
+            material.SetFloat("_GlowPower", 0f);
+            material.SetColor("_GlowColor", Color.black);
         }
     }
 }
