@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Ursaanimation.CubicFarmAnimals;
+using System.Collections.Generic;
 
-public class PredatorAI : MonoBehaviour
+public class PredatorAI : MonoBehaviour, IAnimalStatus
 {
     public enum AIState { Idle, Walking, Hunting, Attacking, Dead }
     public AIState currentState = AIState.Idle;
@@ -15,18 +14,17 @@ public class PredatorAI : MonoBehaviour
     public float huntingSpeed = 8.5f;
     public float attackRange = 3.5f;
     public Animator animator;
-    public float failedHuntDeathTimer = 3 * 24 * 60 * 60;
     public float attackCooldown = 2f;
-    private float currentAttackCooldown = 0f;
-    public enum HungerState { NotHungry, Level1, Level2, Level3 }
-    public HungerState hungerLevel = HungerState.NotHungry;
-    private float hungerTimer = 0f;
-    private const float dayDuration = 24 * 60 * 60; // 1 day in seconds
 
+    private float currentAttackCooldown = 0f;
     private NavMeshAgent agent;
     private GameObject targetPrey;
-    private float timeSinceLastHunt = 0f;
     private AnimalSpawner spawner;
+
+    [Header("Needs")]
+    [SerializeField] private int fullnessLevel = 5;
+    [SerializeField] private int hydrationLevel = 5;
+    private float baseDetectionRange;
 
     void Start()
     {
@@ -35,42 +33,26 @@ public class PredatorAI : MonoBehaviour
         agent.autoBraking = true;
         spawner = FindObjectOfType<AnimalSpawner>();
 
+        baseDetectionRange = detectionRange;
+
         currentState = AIState.Idle;
         SwitchAnimationState(currentState);
-        currentAttackCooldown = 0;
 
-        if (spawner == null)
-        {
-            Debug.LogError("AnimalSpawner not found in the scene!");
-        }
+        AnimalNeedsManager.Instance?.RegisterAnimal(this);
+    }
+
+    private void OnDestroy()
+    {
+        AnimalNeedsManager.Instance?.UnregisterAnimal(this);
     }
 
     void Update()
     {
-        if (currentState != AIState.Dead)
+        if (currentState == AIState.Dead) return;
+
+        if (currentAttackCooldown > 0)
         {
-            if (currentState != AIState.Hunting && currentState != AIState.Attacking)
-            {
-                timeSinceLastHunt += Time.deltaTime;
-                hungerTimer += Time.deltaTime; // Track hunger duration
-            }
-
-            if (hungerTimer >= dayDuration)
-            {
-                IncreaseHunger();
-                hungerTimer = 0f; // Reset daily hunger check
-            }
-
-            if (hungerLevel == HungerState.Level3 && hungerTimer >= dayDuration)
-            {
-                Die();
-                return;
-            }
-
-            if (currentAttackCooldown > 0)
-            {
-                currentAttackCooldown -= Time.deltaTime;
-            }
+            currentAttackCooldown -= Time.deltaTime;
         }
 
         switch (currentState)
@@ -79,23 +61,6 @@ public class PredatorAI : MonoBehaviour
             case AIState.Walking: HandleWalkingState(); break;
             case AIState.Hunting: HandleHuntingState(); break;
             case AIState.Attacking: HandleAttackingState(); break;
-            case AIState.Dead: break;
-        }
-    }
-
-    void IncreaseHunger()
-    {
-        if (hungerLevel == HungerState.NotHungry)
-        {
-            hungerLevel = HungerState.Level1;
-        }
-        else if (hungerLevel == HungerState.Level1)
-        {
-            hungerLevel = HungerState.Level2;
-        }
-        else if (hungerLevel == HungerState.Level2)
-        {
-            hungerLevel = HungerState.Level3;
         }
     }
 
@@ -114,7 +79,7 @@ public class PredatorAI : MonoBehaviour
 
     void HandleWalkingState()
     {
-        agent.speed = walkingSpeed;  // Ensure correct speed
+        agent.speed = walkingSpeed;
         if (Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
         {
             currentState = AIState.Idle;
@@ -125,10 +90,10 @@ public class PredatorAI : MonoBehaviour
 
     void HandleHuntingState()
     {
-        agent.speed = huntingSpeed;  // Ensure correct speed
+        agent.speed = huntingSpeed;
+
         if (targetPrey == null)
         {
-            timeSinceLastHunt += Time.deltaTime;
             currentState = AIState.Idle;
             SwitchAnimationState(currentState);
             return;
@@ -151,7 +116,6 @@ public class PredatorAI : MonoBehaviour
             agent.SetDestination(transform.position);
             AttackPrey();
             currentAttackCooldown = attackCooldown;
-            timeSinceLastHunt = 0f;
         }
         else
         {
@@ -204,18 +168,9 @@ public class PredatorAI : MonoBehaviour
         {
             prey.Die();
 
-            // Reduce hunger level based on the current state
-            if (hungerLevel == HungerState.Level3)
-            {
-                hungerLevel = HungerState.Level2; // Eating at Level 3 resets to Level 2
-            }
-            else
-            {
-                hungerLevel = HungerState.NotHungry; // Eating at Level 1 or 2 resets fully
-            }
-
-            timeSinceLastHunt = 0f;
-            hungerTimer = 0f; // Reset hunger timer
+            // Regain fullness
+            if (fullnessLevel < 5)
+                fullnessLevel += 1;
         }
 
         currentState = AIState.Idle;
@@ -226,13 +181,7 @@ public class PredatorAI : MonoBehaviour
 
     void Die()
     {
-        FindObjectOfType<AnimalSpawner>()?.DecrementPredatorCount(gameObject);
-
-        if (spawner != null)
-        {
-            spawner.DecrementPredatorCount(gameObject);
-        }
-
+        spawner?.DecrementPredatorCount(gameObject);
         currentState = AIState.Dead;
         SwitchAnimationState(currentState);
         Destroy(gameObject, 2f);
@@ -259,4 +208,30 @@ public class PredatorAI : MonoBehaviour
 
         return navHit.position;
     }
+
+    // === IAnimalStatus Implementation ===
+
+    public void DecreaseHydration()
+    {
+        hydrationLevel = Mathf.Max(0, hydrationLevel - 1);
+        if (hydrationLevel == 0) Die();
+    }
+
+    public void IncreaseHydration()
+    {
+        hydrationLevel = Mathf.Min(5, hydrationLevel + 1);
+    }
+
+    public void DecreaseFullness()
+    {
+        fullnessLevel = Mathf.Max(0, fullnessLevel - 1);
+        if (fullnessLevel == 0) Die();
+    }
+
+    public void ModifyHuntingRadius(float multiplier)
+    {
+        detectionRange = baseDetectionRange * multiplier;
+    }
+
+    public bool IsPredator() => true;
 }
