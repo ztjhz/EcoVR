@@ -1,9 +1,10 @@
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraZoomController : MonoBehaviour
 {
-    public Camera mainCamera;
+    public XROrigin xrOrigin;
     public Slider zoomSlider;
 
     private float minHeight = 90f; // The closest zoom-in position
@@ -11,9 +12,9 @@ public class CameraZoomController : MonoBehaviour
 
     void Start()
     {
-        if (mainCamera == null)
+        if (xrOrigin == null)
         {
-            Debug.LogError("CameraZoomController: Main Camera is not assigned!");
+            Debug.LogError("CameraZoomController: XROrigin is not assigned!");
             return;
         }
 
@@ -23,8 +24,8 @@ public class CameraZoomController : MonoBehaviour
             return;
         }
 
-        // Set maxHeight to the camera's starting height (zoomed out)
-        maxHeight = mainCamera.transform.position.y;
+        // Set maxHeight to the xrOrigin's starting height (zoomed out)
+        maxHeight = xrOrigin.transform.position.y;
 
         // Ensure minHeight is valid (so we don't get inverted range issues)
         if (minHeight > maxHeight)
@@ -39,7 +40,7 @@ public class CameraZoomController : MonoBehaviour
         zoomSlider.value = maxHeight; // Start at the current camera height (zoomed out)
 
         // Log to debug values
-        Debug.Log($"CameraZoomController: Initial camera height = {maxHeight}");
+        Debug.Log($"CameraZoomController: Initial XROrigin height = {maxHeight}");
         Debug.Log($"CameraZoomController: Slider range set to Min: {zoomSlider.minValue}, Max: {zoomSlider.maxValue}");
 
         // Add listener for zoom control
@@ -51,10 +52,10 @@ public class CameraZoomController : MonoBehaviour
         Debug.Log($"CameraZoomController: Slider value changed to {value}");
 
         // Adjust camera height (move downward to zoom in)
-        Vector3 newPos = mainCamera.transform.position;
+        Vector3 newPos = xrOrigin.transform.position;
         newPos.y = value;
-        mainCamera.transform.position = newPos;
+        xrOrigin.transform.position = newPos;
 
-        Debug.Log($"Camera position updated to: {mainCamera.transform.position}");
+        Debug.Log($"XROrigin position updated to: {xrOrigin.transform.position}");
     }
 }
