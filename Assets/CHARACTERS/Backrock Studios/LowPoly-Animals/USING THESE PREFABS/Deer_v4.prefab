@@ -2727,6 +2727,7 @@ GameObject:
   - component: {fileID: 4571563708964844474}
   - component: {fileID: 720582814544159329}
   - component: {fileID: 3591521300575469017}
+  - component: {fileID: 3264650057867141803}
   m_Layer: 0
   m_Name: Deer_v4
   m_TagString: Untagged
@@ -2866,6 +2867,20 @@ MonoBehaviour:
   fleeDistance: 20
   fullnessLevel: 5
   hydrationLevel: 5
+--- !u!114 &3264650057867141803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759253174085040456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77d9a295f87c44aebd9fdd6c07e79b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hydrationBar: {fileID: 1391984004353392970}
+  fullnessBar: {fileID: 4470596919416710947}
 --- !u!1 &7816953689435513917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,3 +3488,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4162287111740451280, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
   m_PrefabInstance: {fileID: 4313331986329205167}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1391984004353392970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2922091260979837157, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
+  m_PrefabInstance: {fileID: 4313331986329205167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbab83af6de4bc29177592e46c24bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4470596919416710947 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 420744208630062732, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
+  m_PrefabInstance: {fileID: 4313331986329205167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbab83af6de4bc29177592e46c24bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

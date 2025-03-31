@@ -558,6 +558,7 @@ GameObject:
   - component: {fileID: 1445676592978040020}
   - component: {fileID: -998129976468123358}
   - component: {fileID: 8879840363994937793}
+  - component: {fileID: 2120030074725709020}
   m_Layer: 0
   m_Name: Deer_v5
   m_TagString: Untagged
@@ -697,6 +698,20 @@ MonoBehaviour:
   fleeDistance: 20
   fullnessLevel: 5
   hydrationLevel: 5
+--- !u!114 &2120030074725709020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852192829216458104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77d9a295f87c44aebd9fdd6c07e79b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hydrationBar: {fileID: 5257638725228889115}
+  fullnessBar: {fileID: 7326636093872300658}
 --- !u!1 &1974494386975402576
 GameObject:
   m_ObjectHideFlags: 0
@@ -3468,8 +3483,30 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
+--- !u!114 &5257638725228889115 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2922091260979837157, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
+  m_PrefabInstance: {fileID: 6952352851811302654}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbab83af6de4bc29177592e46c24bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6465148188991624494 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4162287111740451280, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
   m_PrefabInstance: {fileID: 6952352851811302654}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7326636093872300658 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 420744208630062732, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
+  m_PrefabInstance: {fileID: 6952352851811302654}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbab83af6de4bc29177592e46c24bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

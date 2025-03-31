@@ -1382,6 +1382,7 @@ GameObject:
   - component: {fileID: 6084376839578919846}
   - component: {fileID: 765472849312389271}
   - component: {fileID: -203237756014460372}
+  - component: {fileID: 6538889715139889076}
   m_Layer: 0
   m_Name: Wolf_v3
   m_TagString: Untagged
@@ -1512,6 +1513,20 @@ MonoBehaviour:
   attackCooldown: 2
   fullnessLevel: 5
   hydrationLevel: 5
+--- !u!114 &6538889715139889076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029702961771229747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77d9a295f87c44aebd9fdd6c07e79b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hydrationBar: {fileID: 1229897401287486836}
+  fullnessBar: {fileID: 4344543237569104669}
 --- !u!1 &3049262097840851169
 GameObject:
   m_ObjectHideFlags: 0
@@ -4095,3 +4110,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4162287111740451280, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
   m_PrefabInstance: {fileID: 4151232189076559249}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1229897401287486836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2922091260979837157, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
+  m_PrefabInstance: {fileID: 4151232189076559249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbab83af6de4bc29177592e46c24bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4344543237569104669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 420744208630062732, guid: f83427e47fbf9469fbe37c78cfde3922, type: 3}
+  m_PrefabInstance: {fileID: 4151232189076559249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbab83af6de4bc29177592e46c24bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
