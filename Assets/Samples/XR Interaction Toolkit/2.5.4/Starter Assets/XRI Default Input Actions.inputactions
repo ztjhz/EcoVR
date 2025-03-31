@@ -790,6 +790,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "water",
+                    "type": "Button",
+                    "id": "10a9e824-b944-4c9d-8406-776a4fb50a2d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -971,12 +980,12 @@
                 },
                 {
                     "name": "",
-                    "id": "b76a0685-d29a-44fd-9314-af8b580c8f73",
+                    "id": "add3ed5f-a795-4ba2-88ec-6a942c6c5c4e",
                     "path": "<XRController>{LeftHand}/{SecondaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
-                    "action": "magnifying glass",
+                    "action": "water",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1279,6 +1288,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "food",
+                    "type": "Button",
+                    "id": "1910a2e8-a10c-4d37-b738-67f2c2303add",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1526,12 +1544,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1aeb4e70-fd3a-403d-a4d8-2f7f058d5ee9",
+                    "id": "79f5d6f8-0091-47d9-9ea1-d12388dd1375",
                     "path": "<XRController>{RightHand}/{SecondaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
-                    "action": "binoculars",
+                    "action": "food",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

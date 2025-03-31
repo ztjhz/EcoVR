@@ -2614,6 +2614,8 @@ GameObject:
   - component: {fileID: 775619324251762471}
   - component: {fileID: -7191646558983316155}
   - component: {fileID: -2726024062518971805}
+  - component: {fileID: -8505515144764845588}
+  - component: {fileID: 7676691814213689737}
   - component: {fileID: 6276986067329297995}
   m_Layer: 0
   m_Name: SK_Goat_dark
@@ -2731,8 +2733,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.67
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!54 &-2726024062518971805
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2774,6 +2776,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hydrationBar: {fileID: 6804651975305123163}
   fullnessBar: {fileID: 8301656725110633266}
+--- !u!65 &-8505515144764845588
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3507746843320673371}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0.5}
+--- !u!114 &7676691814213689737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3507746843320673371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ddf8599b6f787e42a1278a7022911eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3507746843373913714
 GameObject:
   m_ObjectHideFlags: 0

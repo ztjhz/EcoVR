@@ -2599,6 +2599,8 @@ GameObject:
   - component: {fileID: -8914948616559726421}
   - component: {fileID: -2969638850330509123}
   - component: {fileID: -5618837133204311584}
+  - component: {fileID: 3891981466937033743}
+  - component: {fileID: -4917781749393709771}
   - component: {fileID: 2445439427814820841}
   m_Layer: 0
   m_Name: SK_Sheep_cream
@@ -2716,8 +2718,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.67
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!54 &-5618837133204311584
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2759,6 +2761,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hydrationBar: {fileID: 7466136524761992163}
   fullnessBar: {fileID: 5388163025524583818}
+--- !u!65 &3891981466937033743
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077612351692668892}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0.5}
+--- !u!114 &-4917781749393709771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077612351692668892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ddf8599b6f787e42a1278a7022911eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4077612351707917761
 GameObject:
   m_ObjectHideFlags: 0

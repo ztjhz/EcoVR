@@ -42,6 +42,8 @@ public class XRRigToggle : MonoBehaviour
         {
             xrRigs.firstPersonRig.SetActive(true);  // Activate first-person rig
             xrRigs.birdEyeRig.SetActive(false);    // Deactivate bird's-eye rig
+            xrRigs.firstPersonRig.transform.position = xrRigs.birdEyeRig.transform.position;
+            xrRigs.firstPersonRig.transform.rotation = xrRigs.birdEyeRig.transform.rotation;
         }
     }
 
