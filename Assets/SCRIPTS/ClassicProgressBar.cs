@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿	using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,4 +56,10 @@ public class ClassicProgressBar : MonoBehaviour {
 	private float ConvertFragmentToWidth(float fragment) {
 		return m_RectTransform.sizeDelta.x * fragment;
 	}
+
+	public void SetFillAmount(float amount)
+	{
+		m_FillAmount = Mathf.Clamp01(amount);
+	}
+
 }

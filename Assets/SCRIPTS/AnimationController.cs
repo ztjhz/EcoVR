@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-using System.Collections.Generic;
+using Ursaanimation.CubicFarmAnimals;
 
 namespace Ursaanimation.CubicFarmAnimals
 {
-    public class AnimationController : MonoBehaviour
+    public class AnimationController : MonoBehaviour, IAnimalStatus
     {
         public enum AIState { Idle, Walking, Eating, Running, Dead }
         public AIState currentState = AIState.Idle;
@@ -23,8 +23,8 @@ namespace Ursaanimation.CubicFarmAnimals
 
         public float moveSpeed = 2f;
         public float rotationSpeed = 100f;
-        public float detectionRange = 10f;  // Range to detect predators
-        public float fleeDistance = 20f;   // Distance to flee from predators
+        public float detectionRange = 10f;
+        public float fleeDistance = 20f;
 
         private NavMeshAgent agent;
         private Transform detectedPredator;
@@ -32,8 +32,12 @@ namespace Ursaanimation.CubicFarmAnimals
         private float actionTime;
 
         private AnimalSpawner spawner;
-        private float animationCooldownTime = 0.5f;  // Cooldown time between animations (in seconds)
-        private float currentCooldownTime = 0f;  // Current cooldown time
+        private float animationCooldownTime = 0.5f;
+        private float currentCooldownTime = 0f;
+
+        [Header("Needs")]
+        [SerializeField] private int fullnessLevel = 5; // Always full
+        [SerializeField] private int hydrationLevel = 5;
 
         void Start()
         {
@@ -41,30 +45,25 @@ namespace Ursaanimation.CubicFarmAnimals
             agent = GetComponent<NavMeshAgent>();
             spawner = FindObjectOfType<AnimalSpawner>();
 
-            // Initialize the state to idle
             SetState(AIState.Idle);
+
+            AnimalNeedsManager.Instance?.RegisterAnimal(this);
+        }
+
+        private void OnDestroy()
+        {
+            AnimalNeedsManager.Instance?.UnregisterAnimal(this);
         }
 
         void Update()
         {
-            // Handle state-specific actions
             switch (currentState)
             {
-                case AIState.Idle:
-                    HandleIdleState();
-                    break;
-                case AIState.Walking:
-                    HandleWalkingState();
-                    break;
-                case AIState.Eating:
-                    HandleEatingState();
-                    break;
-                case AIState.Running:
-                    HandleRunningState();
-                    break;
-                case AIState.Dead:
-                    HandleDeadState();
-                    break;
+                case AIState.Idle: HandleIdleState(); break;
+                case AIState.Walking: HandleWalkingState(); break;
+                case AIState.Eating: HandleEatingState(); break;
+                case AIState.Running: HandleRunningState(); break;
+                case AIState.Dead: HandleDeadState(); break;
             }
 
             DetectPredator();
@@ -72,94 +71,56 @@ namespace Ursaanimation.CubicFarmAnimals
 
         void HandleIdleState()
         {
-            // Lower chance of moving to Walking state
-            if (Random.value < 0.05f)  // 5% chance to move randomly
+            if (Random.value < 0.05f)
             {
                 Vector3 wanderTarget = RandomNavSphere(transform.position, 10f);
                 agent.SetDestination(wanderTarget);
                 SetState(AIState.Walking);
             }
-            else if (Random.value < 0.1f)  // 10% chance to start eating
+            else if (Random.value < 0.1f)
             {
-                SetState(AIState.Eating);  // Transition to Eating state
+                SetState(AIState.Eating);
             }
-            Debug.Log("Current State: Idle");
         }
 
         void HandleWalkingState()
         {
-            // Decrease cooldown time
             currentCooldownTime -= Time.deltaTime;
 
-            // Only change the animation if the cooldown has passed
             if (currentCooldownTime <= 0)
             {
-                // Randomly choose between different walking animations
                 float randomChoice = Random.value;
+                if (randomChoice < 0.25f) animator.Play(turn90LeftAnimation);
+                else if (randomChoice < 0.5f) animator.Play(turn90RightAnimation);
+                else if (randomChoice < 0.75f) animator.Play(walkBackwardsAnimation);
+                else animator.Play(trotForwardAnimation);
 
-                if (randomChoice < 0.25f)  // 25% chance to turn left
-                {
-                    animator.Play(turn90LeftAnimation);
-                }
-                else if (randomChoice < 0.5f)  // 25% chance to turn right
-                {
-                    animator.Play(turn90RightAnimation);
-                }
-                else if (randomChoice < 0.75f)  // 25% chance to walk backwards
-                {
-                    animator.Play(walkBackwardsAnimation);
-                }
-                else  // 25% chance to trot forward
-                {
-                    animator.Play(trotForwardAnimation);
-                }
-
-                // Reset the cooldown time after a transition
                 currentCooldownTime = animationCooldownTime;
             }
 
             agent.speed = moveSpeed;
 
-            // Check for predator detection while walking
-            DetectPredator();
-
-            // Check if the animal has stopped moving and transition to Idle
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && agent.velocity.sqrMagnitude < 0.01f)
             {
                 SetState(AIState.Idle);
             }
-
-            //Debug.Log("Current State: Walking");
         }
-
-
 
         void HandleEatingState()
         {
-            // If it's the first time entering the Eating state, set a random eating duration
             if (actionTime <= 0)
             {
-                // Play the 'stand to sit' animation first
                 animator.Play(standToSitAnimation);
-                actionTime = Random.Range(2f, 5f);  // Random time to simulate eating, adjust range as needed
+                actionTime = Random.Range(2f, 5f);
             }
 
-            // Decrease the action time to simulate the eating duration
             actionTime -= Time.deltaTime;
 
-            // Detect predators while eating
-            DetectPredator();  // Check for predators
-
-            // Once the action time is finished, transition to Idle or Walking
             if (actionTime <= 0)
             {
-                SetState(AIState.Idle);  // Transition to Idle (or Walking if needed)
+                SetState(AIState.Idle);
             }
-
-            Debug.Log("Current State: Eating");
         }
-
-
 
         void HandleRunningState()
         {
@@ -173,82 +134,35 @@ namespace Ursaanimation.CubicFarmAnimals
             }
             else
             {
-                // If no predator is detected, stop running and transition back to Idle
                 SetState(AIState.Idle);
             }
-
-            Debug.Log("Current State: Running");
         }
-
 
         void HandleDeadState()
         {
-            FindObjectOfType<AnimalSpawner>()?.DecrementPreyCount(gameObject);
-            if (spawner != null)
-                spawner.DecrementPreyCount(gameObject);
-
-            Destroy(gameObject, 2f);  // Destroy the object after 2 seconds.
-            Debug.Log("Current State: Dead");
+            spawner?.DecrementPreyCount(gameObject);
+            Destroy(gameObject, 2f);
         }
 
-        // Switches the current state and updates the animation parameters
         void SetState(AIState newState)
         {
-            if (currentState != newState)  // Prevent redundant log messages
+            if (currentState != newState)
             {
                 currentState = newState;
                 switch (currentState)
                 {
                     case AIState.Idle:
-                        animator.Play(idleAnimation);
-                        break;
-
+                        animator.Play(idleAnimation); break;
                     case AIState.Walking:
-                        // Check if the cooldown has expired before playing a new animation
-                        if (currentCooldownTime <= 0)
-                        {
-                            // Randomly choose between different walking animations when entering Walking state
-                            float randomChoice = Random.value;
-
-                            if (randomChoice < 0.25f)  // 25% chance to turn left
-                            {
-                                animator.Play(turn90LeftAnimation);
-                            }
-                            else if (randomChoice < 0.5f)  // 25% chance to turn right
-                            {
-                                animator.Play(turn90RightAnimation);
-                            }
-                            else if (randomChoice < 0.75f)  // 25% chance to walk backwards
-                            {
-                                animator.Play(walkBackwardsAnimation);
-                            }
-                            else  // 25% chance to trot forward
-                            {
-                                animator.Play(trotForwardAnimation);
-                            }
-
-                            // Reset the cooldown time after a transition
-                            currentCooldownTime = animationCooldownTime;
-                        }
-                        break;
-
+                        animator.Play(trotForwardAnimation); break;
                     case AIState.Eating:
-                        animator.Play(standToSitAnimation);
-                        break;
-
+                        animator.Play(standToSitAnimation); break;
                     case AIState.Running:
-                        animator.Play(runForwardAnimation);
-                        break;
-
-                    case AIState.Dead:
-                        break;
+                        animator.Play(runForwardAnimation); break;
                 }
             }
         }
 
-
-
-        // Detects predators from the serialized list of predator prefabs
         void DetectPredator()
         {
             GameObject closestPredator = null;
@@ -257,7 +171,6 @@ namespace Ursaanimation.CubicFarmAnimals
             GameObject[] allPredators = GameObject.FindGameObjectsWithTag("predator");
             foreach (GameObject predator in allPredators)
             {
-                // Calculate the distance from the prey to the predator
                 float distance = Vector3.Distance(transform.position, predator.transform.position);
                 if (distance < closestDistance)
                 {
@@ -269,27 +182,46 @@ namespace Ursaanimation.CubicFarmAnimals
             if (closestPredator != null)
             {
                 detectedPredator = closestPredator.transform;
-                Debug.Log("Predator detected! Transitioning to Running.");
                 SetState(AIState.Running);
             }
         }
 
-        // Called by predator
         public void Die()
         {
             SetState(AIState.Dead);
         }
 
-        // Get a random position on the NavMesh
         Vector3 RandomNavSphere(Vector3 origin, float distance)
         {
-            Vector3 randomDirection = Random.insideUnitSphere * distance;
-            randomDirection += origin;
-
+            Vector3 randomDirection = Random.insideUnitSphere * distance + origin;
             NavMeshHit navHit;
             bool isValid = NavMesh.SamplePosition(randomDirection, out navHit, distance, NavMesh.AllAreas);
-
-            return isValid ? navHit.position : origin;  // Return original position if NavMesh position isn't found
+            return isValid ? navHit.position : origin;
         }
+
+        // === IAnimalStatus Implementation ===
+
+        public void DecreaseHydration()
+        {
+            hydrationLevel = Mathf.Max(0, hydrationLevel - 1);
+            if (hydrationLevel == 0) Die();
+        }
+
+        public void IncreaseHydration()
+        {
+            hydrationLevel = Mathf.Min(5, hydrationLevel + 1);
+        }
+
+        public void DecreaseFullness()
+        {
+            // Do nothing – prey are always full
+        }
+
+        public void ModifyHuntingRadius(float multiplier)
+        {
+            // Do nothing – prey don’t hunt
+        }
+
+        public bool IsPredator() => false;
     }
 }
