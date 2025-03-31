@@ -217,6 +217,12 @@ namespace Ursaanimation.CubicFarmAnimals
             // Do nothing – prey are always full
         }
 
+        public void IncreaseFullness()
+        {
+            fullnessLevel = Mathf.Min(5, fullnessLevel + 1);
+        }
+
+
         public void ModifyHuntingRadius(float multiplier)
         {
             // Do nothing – prey don’t hunt

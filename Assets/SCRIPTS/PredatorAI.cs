@@ -228,6 +228,12 @@ public class PredatorAI : MonoBehaviour, IAnimalStatus
         if (fullnessLevel == 0) Die();
     }
 
+    public void IncreaseFullness()
+    {
+        fullnessLevel = Mathf.Min(5, fullnessLevel + 1);
+    }
+
+
     public void ModifyHuntingRadius(float multiplier)
     {
         detectionRange = baseDetectionRange * multiplier;
