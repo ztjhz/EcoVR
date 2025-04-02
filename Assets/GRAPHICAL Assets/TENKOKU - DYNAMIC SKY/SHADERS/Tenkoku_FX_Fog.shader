@@ -19,7 +19,7 @@ CGINCLUDE
 	#include "Lighting.cginc"
 
 	uniform sampler2D _MainTex, _SkyTex;
-	uniform sampler2D_float _CameraDepthTexture;
+	UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 	sampler2D _CameraDepthNormalsTexture;
 
 	uniform float4 _HeightParams;

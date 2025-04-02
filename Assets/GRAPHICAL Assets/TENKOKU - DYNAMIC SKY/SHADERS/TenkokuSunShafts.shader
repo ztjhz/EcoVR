@@ -28,7 +28,7 @@ Shader "Hidden/TenkokuSunShafts" {
 	sampler2D _MainTex;
 	sampler2D _ColorBuffer;
 	sampler2D _Skybox;
-	sampler2D_float _CameraDepthTexture;
+	UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 
 	uniform half4 _SunThreshold;
 	

@@ -86,7 +86,7 @@ Category {
 			}
 
 			sampler2D _Tenkoku_SkyTex;
-			sampler2D_float _CameraDepthTexture;
+			UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 			float _InvFade;
 			float Tenkoku_LightningLightIntensity;
 

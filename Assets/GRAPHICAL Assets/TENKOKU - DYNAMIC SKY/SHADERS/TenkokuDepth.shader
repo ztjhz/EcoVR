@@ -19,7 +19,7 @@ Pass
 	#include "UnityCG.cginc"
 
 	uniform sampler2D _MainTex;
-	uniform sampler2D_float _CameraDepthTexture;
+	UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 	uniform float4 _MainTex_TexelSize;
 
 	struct v2f {
