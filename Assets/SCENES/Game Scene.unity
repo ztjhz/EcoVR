@@ -35403,9 +35403,9 @@ MonoBehaviour:
   - {fileID: 3029702961771229747, guid: a300252317ae09c4882fa593264f26a9, type: 3}
   - {fileID: 6943659272118897294, guid: 79fb965ef8845694e9364f4b24c987e9, type: 3}
   initialPreyCount: 10
-  initialPredatorCount: 5
+  initialPredatorCount: 3
   maxAnimals: 50
-  spawnRange: 10
+  spawnRange: 100
   checkInterval: 10
   spawnPreyButton: {fileID: 932941375}
   spawnPredatorButton: {fileID: 1631464293}
