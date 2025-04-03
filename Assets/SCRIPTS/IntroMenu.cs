@@ -9,7 +9,6 @@ public class IntroMenu : MonoBehaviour
     public float detectRange = 20f; // Distance threshold to start text
     public float blinkRange = 3f; // Distance threshold to start blinking
     public float fastBlinkDuration = 0.01f; // Fast flicker speed
-    public float slowBlinkDuration = 0.05f; // Slow flicker speed
 
     private bool isTextStarted = false;
     private bool isBlinking = false;
@@ -83,18 +82,11 @@ public class IntroMenu : MonoBehaviour
     {
         isBlinking = true;
 
-        // Fast blinking (2 seconds)
-        for (int i = 0; i < 20; i++) // 20 times (~2 sec)
+        // Fast blinking (0.5 seconds)
+        for (int i = 0; i < 5; i++) // 5 times (~0.5 sec)
         {
             ToggleVisibility();
             yield return new WaitForSeconds(fastBlinkDuration);
-        }
-
-        // Slow blinking (3 times)
-        for (int i = 0; i < 3; i++)
-        {
-            ToggleVisibility();
-            yield return new WaitForSeconds(slowBlinkDuration);
         }
 
         // Set permanently visible
