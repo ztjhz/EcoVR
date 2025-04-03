@@ -85,7 +85,7 @@ This project explores the benefits of VR simulations for ecological education an
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/EcoVR.git](https://www.google.com/search?q=https://github.com/your-username/EcoVR.git) # Replace with your repo URL
+    git clone [https://github.com/ztjhz/EcoVR.git](https://github.com/ztjhz/EcoVR.git)
     cd EcoVR
     ```
 2.  **Open the project** in Unity Hub, ensuring you select the correct Unity Editor version.
