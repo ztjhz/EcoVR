@@ -12,12 +12,12 @@ public class ConwayPopulationGrowth : MonoBehaviour
 
     // Death controls
     // [Overpopulation] Preys compete for the same food (grass) in an area
-    private float preyConsumptionRadius = 100;
+    private float preyConsumptionRadius = 10;
     private int preyCompetitionThreshold = 10;
 
     // [Overpopulation] Predators compete for the same food (prey) in an area
-    private float predatorConsumptionRadius = 300;
-    private int predatorCompetitionThreshold = 5;
+    private float predatorConsumptionRadius = 100;
+    private int predatorCompetitionThreshold = 10;
 
     // [Underpopulation] If animals are too isolated, they may feel lonely or cannot survive on their own
     private float companionRadius = 100;
@@ -28,7 +28,7 @@ public class ConwayPopulationGrowth : MonoBehaviour
     // [Reproduction]
     private float reproductionRadius = 50; // how close animials must be to reproduce
     private int reproductionFloor = 2; // how many animals are needed to reproduce
-    private float reproductionProb = 0.5f; // how likely animals will reproduce if together
+    private float reproductionProb = 0.6f; // how likely animals will reproduce if together
 
 
     void Start()

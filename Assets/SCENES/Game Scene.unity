@@ -9588,11 +9588,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 704595406815510177, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.010279676
+      value: -0.010279674
       objectReference: {fileID: 0}
     - target: {fileID: 704595406815510177, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0023909733
+      value: 0.0023909695
       objectReference: {fileID: 0}
     - target: {fileID: 704595406815510178, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
       propertyPath: m_Color.a
@@ -9652,7 +9652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 704595407411763242, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.121694855
+      value: -0.12169486
       objectReference: {fileID: 0}
     - target: {fileID: 704595407411763242, guid: 34d71198bd59f3a4db26f79e7ef0ff91, type: 3}
       propertyPath: m_LocalRotation.z
@@ -11031,7 +11031,7 @@ MonoBehaviour:
   continueText: {fileID: 441306192}
   currentPanel: {fileID: 481274314}
   nextPanel: {fileID: 0}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.02
   sentences:
   - That's all from me! We hope you enjoy EcoVR!
 --- !u!4 &489084165 stripped
@@ -11685,7 +11685,7 @@ MonoBehaviour:
   continueText: {fileID: 317323309}
   currentPanel: {fileID: 530918346}
   nextPanel: {fileID: 1766143747}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.02
   sentences:
   - Oh hello! Didn't see you there, welcome to EcoVR!
   - My name is Maxi and I will be your guide for this tutorial!
@@ -13726,7 +13726,7 @@ MonoBehaviour:
   continueText: {fileID: 1033996407}
   currentPanel: {fileID: 638808149}
   nextPanel: {fileID: 2143118945}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.02
   sentences:
   - Over here are the Zoom In and Time Lapse sliders!
   - You can use the sliders to either zoom in for a closer look...
@@ -15372,6 +15372,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf382aa0c9c7a3d49a0f8673764e7d76, type: 3}
+--- !u!84 &752682067
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 74
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1001 &755655445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16323,44 +16361,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16e5fd76e701eeb4f8c6dac609e99b59, type: 3}
---- !u!84 &797663164
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 128
-  m_Height: 128
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 94
-  m_ColorFormat: 74
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1001 &801237689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25245,7 +25245,7 @@ MonoBehaviour:
   continueText: {fileID: 102526809}
   currentPanel: {fileID: 1207303832}
   nextPanel: {fileID: 481274314}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.02
   sentences:
   - This is the Overall Analytics Button! Click this once you are satisfied with
     your simulation to go to the Analytics Page!
@@ -25569,7 +25569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1224774377
 Transform:
   m_ObjectHideFlags: 0
@@ -26771,44 +26771,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3021800361227820097, guid: 3da39b9cbf771e24685504dbfdd96764, type: 3}
   m_PrefabInstance: {fileID: 1272517242}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1274341365
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 128
-  m_Height: 128
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 94
-  m_ColorFormat: 74
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1001 &1276363966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30444,7 +30406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844796264715400244, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6009291003649067436, guid: 661cc5929cce94d26825f460c7a6f74b, type: 3}
       propertyPath: m_fontAsset
@@ -35403,9 +35365,9 @@ MonoBehaviour:
   - {fileID: 3029702961771229747, guid: a300252317ae09c4882fa593264f26a9, type: 3}
   - {fileID: 6943659272118897294, guid: 79fb965ef8845694e9364f4b24c987e9, type: 3}
   initialPreyCount: 10
-  initialPredatorCount: 5
+  initialPredatorCount: 3
   maxAnimals: 50
-  spawnRange: 10
+  spawnRange: 100
   checkInterval: 10
   spawnPreyButton: {fileID: 932941375}
   spawnPredatorButton: {fileID: 1631464293}
@@ -38591,7 +38553,7 @@ MonoBehaviour:
   continueText: {fileID: 390112964}
   currentPanel: {fileID: 1766143747}
   nextPanel: {fileID: 638808149}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.02
   sentences:
   - EcoVR is an educational tool which allows users to create and simulate ecosystems!
   - We hope with EcoVR you will be able to learn more about the environment and how
@@ -40866,6 +40828,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d5627d4b8334174c9444b95b0a6089b, type: 3}
+--- !u!84 &1848141987
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 128
+  m_Height: 128
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 94
+  m_ColorFormat: 74
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &1850643656
 GameObject:
   m_ObjectHideFlags: 0
@@ -43696,6 +43696,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderScale: 0.75
+  minDynamicScale: 0.6
+  maxDynamicScale: 1
 --- !u!1001 &1996865185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45632,7 +45634,7 @@ MonoBehaviour:
   continueText: {fileID: 1300000689}
   currentPanel: {fileID: 2143118945}
   nextPanel: {fileID: 1207303832}
-  typewriterSpeed: 0.05
+  typewriterSpeed: 0.02
   sentences:
   - These here are buttons which you can use during the simulation!
   - Choose to spawn more predators or prey, or cycle the weather between rainy, snowy
