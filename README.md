@@ -50,7 +50,7 @@ This project explores the benefits of VR simulations for ecological education an
 | Feeding             | ![feeding](https://github.com/user-attachments/assets/bdf9e136-b682-4651-9b76-62f5575f18a6)             |
 | Detection Radius    | ![radius](https://github.com/user-attachments/assets/21eec1ae-5de6-4b09-a0a3-be0bc2fb5d2a)             |
 | Predator Hunt       | ![predator-prey](https://github.com/user-attachments/assets/369be6c3-c74a-4386-b61f-58e8530c0a7a)                  | | Binoculars/Magnifier| ![game-tools](https://github.com/user-attachments/assets/4b19f77d-a0bd-453b-bf4b-8133ffee4f97)                 | | Status System       | ![status-system](https://github.com/user-attachments/assets/046c3644-3235-414a-bc37-716bfbdc21df)       |
-| Weather (Rain)      | ![weather-rain](https://github.com/user-attachments/assets/INSERT_FIGURE_4.9_URL_HERE)                   | | **UI & Analytics** |                                                                                                        |
+| Weather (Rain)      | ![weather](https://github.com/user-attachments/assets/ba3323c3-5c72-44ea-8d64-cf3353e4ba0b)                   | | **UI & Analytics** |                                                                                                        |
 | Main Menu           | ![main-menu](https://github.com/user-attachments/assets/6084b066-7136-4758-b292-e116de2dca34)           |
 | Tutorial            | ![tutorial](https://github.com/user-attachments/assets/ccd95207-156a-42a1-97ac-fd0eb11806a0)           |
 | Analytics Lab       | ![analytics-lab](https://github.com/user-attachments/assets/6347ecf7-9f3b-43e0-ad92-98b29fe3059e)       |
