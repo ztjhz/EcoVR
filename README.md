@@ -1,5 +1,7 @@
 # EcoVR: A Virtual Ecosystem Simulator
 
+[🎥 Video Trailer](https://youtu.be/C2f6LHMTQps)
+
 **Step into a vibrant virtual forest and witness the intricate dance of life. EcoVR is an immersive Virtual Reality (VR) simulation that allows you to explore, interact with, and analyze a dynamic ecosystem.**
 
 ![game-scene-bird-view](https://github.com/user-attachments/assets/b949f206-0958-41cf-a378-2e63dc04f11a)
@@ -44,10 +46,10 @@ This project explores the benefits of VR simulations for ecological education an
 | :------------------ | :----------------------------------------------------------------------------------------------------- |
 | **Gameplay** |                                                                                                        |
 | Bird's Eye View     | ![game-scene-bird-view](https://github.com/user-attachments/assets/b949f206-0958-41cf-a378-2e63dc04f11a) |
-| First Person        | *Placeholder for a good First Person screenshot* |
+| First Person        | ![game-tools-2](https://github.com/user-attachments/assets/286f460f-08d8-4ce6-a6ac-de882fe20381) |
 | Feeding             | ![feeding](https://github.com/user-attachments/assets/bdf9e136-b682-4651-9b76-62f5575f18a6)             |
 | Detection Radius    | ![radius](https://github.com/user-attachments/assets/21eec1ae-5de6-4b09-a0a3-be0bc2fb5d2a)             |
-| Predator Hunt       | ![predator-prey](https://github.com/user-attachments/assets/INSERT_FIGURE_4.6_URL_HERE)                  | | Binoculars/Magnifier| ![tools](https://github.com/user-attachments/assets/INSERT_FIGURE_4.10_URL_HERE)                 | | Status System       | ![status-system](https://github.com/user-attachments/assets/046c3644-3235-414a-bc37-716bfbdc21df)       |
+| Predator Hunt       | ![predator-prey](https://github.com/user-attachments/assets/369be6c3-c74a-4386-b61f-58e8530c0a7a)                  | | Binoculars/Magnifier| ![game-tools](https://github.com/user-attachments/assets/4b19f77d-a0bd-453b-bf4b-8133ffee4f97)                 | | Status System       | ![status-system](https://github.com/user-attachments/assets/046c3644-3235-414a-bc37-716bfbdc21df)       |
 | Weather (Rain)      | ![weather-rain](https://github.com/user-attachments/assets/INSERT_FIGURE_4.9_URL_HERE)                   | | **UI & Analytics** |                                                                                                        |
 | Main Menu           | ![main-menu](https://github.com/user-attachments/assets/6084b066-7136-4758-b292-e116de2dca34)           |
 | Tutorial            | ![tutorial](https://github.com/user-attachments/assets/ccd95207-156a-42a1-97ac-fd0eb11806a0)           |
@@ -59,11 +61,14 @@ This project explores the benefits of VR simulations for ecological education an
 | Heatmap Over Time   | ![population heatmap 2](https://github.com/user-attachments/assets/6b4f63f2-0a39-4ac6-9ce9-2e40bdded84c) | | Population Attributes| ![population attributes](https://github.com/user-attachments/assets/a561bd48-590e-4b31-a05c-7eaeaf0dd059)|
 | Population Prediction| ![population prediction](https://github.com/user-attachments/assets/7f6d797b-573c-4e98-9d14-bfc25a4f73a8)|
 
+
+
+
 </details>
 
 ## 💻 Tech Stack
 
-* **Engine:** Unity (Specify Version if known, e.g., Unity 2022.3.x)
+* **Engine:** Unity 2022.3.40f1
 * **Language:** C#
 * **VR Integration:** Unity XR Interaction Toolkit, Meta Quest Link
 * **Target Hardware:** Meta Quest 3 (Tested with Meta Quest Link)
@@ -72,14 +77,11 @@ This project explores the benefits of VR simulations for ecological education an
 
 ## 🚀 Getting Started
 
-*(This section needs specific details based on how someone would run/use your project. Below is a template assuming it's run from the Unity Editor)*
-
 **Prerequisites:**
 
-* Unity Hub and Unity Editor (Specify Version if known) installed.
+* Unity Hub and Unity Editor installed.
 * Git installed.
-* Meta Quest 3 headset and Oculus Desktop App installed (for Meta Quest Link).
-* Required Unity Asset Store assets imported (see Acknowledgements).
+* Meta Quest 3 headset and Meta Quest Link Desktop App installed.
 
 **Installation & Running:**
 
@@ -89,14 +91,14 @@ This project explores the benefits of VR simulations for ecological education an
     cd EcoVR
     ```
 2.  **Open the project** in Unity Hub, ensuring you select the correct Unity Editor version.
-3.  **Configure VR:** Set up your Meta Quest 3 with Quest Link according to Meta's instructions.
+3.  **Configure VR:** Set up your Meta Quest 3 with Quest Link according to Meta's instructions and connect to your computer.
 4.  **Open the Main Scene:** Navigate to `Assets/Scenes/` (or your specific path) and open the `MainMenuScene`.
 5.  **Press Play** in the Unity Editor to start the simulation in your VR headset.
 
 *Alternatively:*
 
 1.  Download the latest release from the [Releases page](link-to-releases).
-2.  Transfer the apk to your Meta Quest 3
+2.  Install the apk in your Meta Quest 3
 3.  Play!
 
 ## 📦 Assets & Acknowledgements
@@ -107,7 +109,7 @@ EcoVR utilizes several excellent assets from the Unity Asset Store to create its
 * **Stylised Nature Kit Lite:** [Link](https://assetstore.unity.com/packages/3d/environments/stylized-nature-kit-lite-176906) (Used in Analytics Scene)
 * **Dreamscape Nature Mountains:** [Link](https://assetstore.unity.com/packages/3d/environments/fantasy/dreamscape-nature-mountains-stylized-open-world-environment-264352) (Used in Game Scene)
 * **Tenkoku Dynamic Sky:** [Link](https://assetstore.unity.com/packages/tools/particles-effects/tenkoku-dynamic-sky-34435) (Used for weather & sky in Game Scene)
-* **Animal Models:** (Link TBD - See Report Section 3.2)
+* **Animal Models:** [Link](https://assetstore.unity.com/packages/3d/characters/animals/low-poly-animals-3d-assets-258476), [Link](https://assetstore.unity.com/packages/3d/characters/animals/animated-goat-and-sheep-3d-low-poly-free-251910) (Used for animal models)
 * **Low Poly Food Lite:** [Link](https://assetstore.unity.com/packages/3d/props/food/low-poly-food-lite-258693) (Used for feeding interaction)
 * **XCharts:** [Link](https://github.com/XCharts-Team/XCharts) (Used for data visualization)
 
@@ -127,4 +129,7 @@ EcoVR has potential for further development. Some planned or potential enhanceme
 * Procedural generation for larger, more varied worlds.
 * Data export tools for external analysis.
 
-*(See Section 7.1 of the project report for more details)*
+## Contributors
+- [Noel](https://github.com/NoelWee)
+- [Jing Hua](https://github.com/ztjhz)
+- [Miko](https://github.com/P1935404)
