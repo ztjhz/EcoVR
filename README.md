@@ -97,7 +97,7 @@ This project explores the benefits of VR simulations for ecological education an
 
 *Alternatively:*
 
-1.  Download the latest release from the [Releases page](link-to-releases).
+1.  Download the latest release from the [Releases page](https://github.com/ztjhz/EcoVR/releases).
 2.  Install the apk in your Meta Quest 3
 3.  Play!
 
